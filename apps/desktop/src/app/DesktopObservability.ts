@@ -608,12 +608,12 @@ const layerTelemetry = Layer.unwrap(
       ? environment.appVersion
       : desktopPackageJson.version;
     const resource = {
-      serviceName: "t3code-desktop",
+      serviceName: "oldleecode-desktop",
       serviceVersion,
       attributes: {
-        "service.namespace": "t3code",
+        "service.namespace": "oldleecode",
         "service.runtime": "desktop",
-        "t3code.desktop.mode": environment.isDevelopment ? "development" : "packaged",
+        "oldleecode.desktop.mode": environment.isDevelopment ? "development" : "packaged",
         "service.instance.id": processServiceInstanceId(endpoints.resourceAttributes),
         ...releaseResourceAttributes(
           environment.isDevelopment ? "dev" : releaseChannelOf(serviceVersion),

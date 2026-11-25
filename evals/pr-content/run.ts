@@ -91,7 +91,8 @@ const fixtures = [
   },
   {
     id: "conventional-commits-title",
-    source: "pingdotgg/t3code#40562: Conventional Commits style dropped the prefix from PR titles",
+    source:
+      "oldleeo/oldlee-code#40562: Conventional Commits style dropped the prefix from PR titles",
     launchArgs: undefined,
     titlePrefix: undefined,
     producedBy: undefined,

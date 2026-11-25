@@ -115,8 +115,10 @@ describe("filesystem browse model", () => {
     });
     expect(getFilesystemBrowseTabCompletion([], "x")).toBeNull();
     // The list also shows substring and fuzzy matches; Tab completes only the typed name.
-    expect(getFilesystemBrowseTabCompletion([entry("t3code"), entry("my-t3code")], "t3")).toEqual({
-      name: "t3code",
+    expect(
+      getFilesystemBrowseTabCompletion([entry("oldleecode"), entry("my-oldleecode")], "old"),
+    ).toEqual({
+      name: "oldleecode",
       isComplete: true,
     });
     expect(
@@ -125,7 +127,7 @@ describe("filesystem browse model", () => {
         "op",
       ),
     ).toEqual({ name: "Open", isComplete: false });
-    expect(getFilesystemBrowseTabCompletion([entry("t3code")], "tcd")).toBeNull();
+    expect(getFilesystemBrowseTabCompletion([entry("oldleecode")], "tcd")).toBeNull();
   });
 
   it("matches folder names stored decomposed, as macOS Finder names them", () => {
@@ -177,21 +179,23 @@ describe("browse navigation", () => {
 });
 
 describe("browse entry filtering", () => {
-  const entries = ["my-t3code", "t3code", "cotton", "T3Code-old", ".t3", "docs"].map((name) => ({
-    name,
-    fullPath: `~/code/${name}`,
-  }));
+  const entries = ["my-oldleecode", "oldleecode", "cotton", "OldleeCode-old", ".t3", "docs"].map(
+    (name) => ({
+      name,
+      fullPath: `~/code/${name}`,
+    }),
+  );
   const names = (query: string) =>
     filterFilesystemBrowseEntries(entries, query).visibleEntries.map((entry) => entry.name);
 
   it("keeps every visible entry in order for an empty query", () => {
-    expect(names("")).toEqual(["my-t3code", "t3code", "cotton", "T3Code-old", "docs"]);
+    expect(names("")).toEqual(["my-oldleecode", "oldleecode", "cotton", "OldleeCode-old", "docs"]);
   });
 
   it("matches substrings and subsequences, best match first", () => {
-    expect(names("code")).toEqual(["t3code", "T3Code-old", "my-t3code"]);
-    expect(names("t3c")).toEqual(["t3code", "T3Code-old", "my-t3code"]);
-    expect(names("tcd")).toEqual(["t3code", "T3Code-old", "my-t3code"]);
+    expect(names("code")).toEqual(["oldleecode", "OldleeCode-old", "my-oldleecode"]);
+    expect(names("old")).toEqual(["oldleecode", "OldleeCode-old", "my-oldleecode"]);
+    expect(names("ocd")).toEqual(["oldleecode", "OldleeCode-old", "my-oldleecode"]);
     expect(names("xyz")).toEqual([]);
   });
 

@@ -26,7 +26,7 @@ export const allowedFor = (
   env.T3CODE_DESKTOP_SHELL_DISCOVERY_PENDING !== "1" &&
   isRelayTracingEnabled(env);
 
-/** Relay traces leave the machine for T3 Connect, so a policy with `telemetry: false` stops them. */
+/** Relay traces leave the machine for Oldlee Connect, so a policy with `telemetry: false` stops them. */
 export const relayLayer = (
   resource: Omit<RelayTracing.RelayClientTracingResource, "serviceInstanceId">,
   tracingConfig = relayClientTracingConfig,
@@ -46,14 +46,14 @@ export const relayLayer = (
   );
 
 export const layerHeadlessRelayClient = relayLayer({
-  serviceName: "t3code-server",
+  serviceName: "oldleecode-server",
   runtime: "node",
   attributes: nodeProcessRuntimeAttributes(),
   client: "headless-cli",
 });
 
 export const layerServerRelayBroker = relayLayer({
-  serviceName: "t3code-server",
+  serviceName: "oldleecode-server",
   runtime: "node",
   attributes: nodeProcessRuntimeAttributes(),
   client: "environment-server",

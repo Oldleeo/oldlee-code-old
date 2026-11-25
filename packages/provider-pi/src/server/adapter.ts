@@ -3397,7 +3397,9 @@ export const makePiAdapterV2 = Effect.fn("makePiAdapterV2")(function* (
           // Pi before 0.99 acknowledges a handled extension command without a disposition.
           const disposition = recordString(result, "disposition");
           if (disposition !== undefined && disposition !== "handled") {
-            return yield* protocolError("T3 Code's Pi extension did not apply the service tier");
+            return yield* protocolError(
+              "Oldlee Code's Pi extension did not apply the service tier",
+            );
           }
           serviceTierMayBeSet = serviceTier !== null;
         }
@@ -4827,7 +4829,7 @@ const rpivField = (input: unknown, key: string) =>
   recordString(input, key)?.replace(/\r\n/g, "\n").replace(/\r/g, "");
 
 const rpivOptionLine = (option: unknown, index: number) =>
-  // oxlint-disable-next-line t3code/no-em-dash-copy -- Matches the extension's option line format.
+  // oxlint-disable-next-line oldleecode/no-em-dash-copy -- Matches the extension's option line format.
   `${index + 1}. ${rpivField(option, "label")} — ${rpivField(option, "description")}`;
 
 /** The extension folds option previews into the select title, the only place clients show them. */

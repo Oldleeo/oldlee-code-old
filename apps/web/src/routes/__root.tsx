@@ -326,7 +326,7 @@ function errorDetails(error: unknown): string {
   try {
     return JSON.stringify(error, null, 2);
   } catch {
-    // oxlint-disable-next-line t3code/no-untranslated-copy -- error report pasted into bug reports
+    // oxlint-disable-next-line oldleecode/no-untranslated-copy -- error report pasted into bug reports
     return "No additional error details are available.";
   }
 }
@@ -409,7 +409,7 @@ function EventRouter({
     })().catch(() => undefined);
   });
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- expands the bootstrap project in the UI store and navigates the router on a server welcome
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- expands the bootstrap project in the UI store and navigates the router on a server welcome
   useEffect(() => {
     handleWelcome(serverWelcome);
   }, [serverWelcome]);

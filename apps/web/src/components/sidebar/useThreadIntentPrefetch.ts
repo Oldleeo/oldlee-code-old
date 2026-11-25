@@ -28,7 +28,7 @@ export function useThreadIntentPrefetch(threadRef: ScopedThreadRef) {
       environmentThreadStateAtom(threadRef.environmentId, threadRef.threadId),
     );
   };
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- releases a held thread subscription when the row unmounts
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- releases a held thread subscription when the row unmounts
   useEffect(
     () => () => {
       clearTimeout(timer.current);

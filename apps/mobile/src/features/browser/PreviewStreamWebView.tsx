@@ -316,7 +316,7 @@ function PreviewStreamDocumentView({
     onControl?.(null);
   });
   // The stream lives exactly as long as this view.
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- starts the bootstrap timeout and stops the WebView stream when this view unmounts
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- starts the bootstrap timeout and stops the WebView stream when this view unmounts
   useLayoutEffect(() => {
     active.current = true;
     const view = webView.current;
@@ -487,7 +487,7 @@ function PreviewStreamDocumentView({
             setSelectMenu((current) => (current?.id === selectMenu.id ? null : current))
           }
         >
-          {/* oxlint-disable-next-line t3code/require-registered-list-scroll -- Sheet content; the sheet keeps its own header handling. */}
+          {/* oxlint-disable-next-line oldleecode/require-registered-list-scroll -- Sheet content; the sheet keeps its own header handling. */}
           <LegendList
             data={selectMenu.options}
             // The page answers by option index.

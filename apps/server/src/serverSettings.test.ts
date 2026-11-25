@@ -65,7 +65,7 @@ const layerServerSettings = (policy?: ManagedPolicyDocument) =>
     Layer.provideMerge(
       Layer.fresh(
         ServerConfig.layerTest(process.cwd(), {
-          prefix: "t3code-server-settings-test-",
+          prefix: "oldleecode-server-settings-test-",
         }),
       ),
     ),
@@ -79,7 +79,7 @@ const layerServerSettingsWithSecrets = () =>
     Layer.provideMerge(
       Layer.fresh(
         ServerConfig.layerTest(process.cwd(), {
-          prefix: "t3code-server-settings-test-",
+          prefix: "oldleecode-server-settings-test-",
         }),
       ),
     ),
@@ -1168,7 +1168,9 @@ it.layer(Layer.mergeAll(NodeServices.layer, NodeCrypto.layer))("server settings"
       Layer.provideMerge(Layer.fresh(SqlitePersistence.layerMemory)),
       Layer.provideMerge(
         Layer.fresh(
-          ServerConfig.layerTest(process.cwd(), { prefix: "t3code-settings-secret-cache-test-" }),
+          ServerConfig.layerTest(process.cwd(), {
+            prefix: "oldleecode-settings-secret-cache-test-",
+          }),
         ),
       ),
     );
@@ -1217,7 +1219,7 @@ it.layer(Layer.mergeAll(NodeServices.layer, NodeCrypto.layer))("server settings"
       Layer.provideMerge(
         Layer.fresh(
           ServerConfig.layerTest(process.cwd(), {
-            prefix: "t3code-inline-secret-failure-test-",
+            prefix: "oldleecode-inline-secret-failure-test-",
           }),
         ),
       ),
@@ -2044,7 +2046,7 @@ it.layer(Layer.mergeAll(NodeServices.layer, NodeCrypto.layer))("server settings"
       Layer.provideMerge(
         Layer.fresh(
           ServerConfig.layerTest(process.cwd(), {
-            prefix: "t3code-server-settings-legacy-failure-test-",
+            prefix: "oldleecode-server-settings-legacy-failure-test-",
           }),
         ),
       ),
@@ -2303,7 +2305,7 @@ it.layer(Layer.mergeAll(NodeServices.layer, NodeCrypto.layer))("server settings"
         Layer.provideMerge(
           Layer.fresh(
             ServerConfig.layerTest(process.cwd(), {
-              prefix: "t3code-server-settings-materialization-failure-test-",
+              prefix: "oldleecode-server-settings-materialization-failure-test-",
             }),
           ),
         ),
@@ -2996,7 +2998,9 @@ it.layer(Layer.mergeAll(NodeServices.layer, NodeCrypto.layer))(
       const shared = ServerSecretStore.layer.pipe(
         Layer.provideMerge(Layer.fresh(SqlitePersistence.layerMemory)),
         Layer.provideMerge(
-          Layer.fresh(ServerConfig.layerTest(process.cwd(), { prefix: "t3code-hidden-secret-" })),
+          Layer.fresh(
+            ServerConfig.layerTest(process.cwd(), { prefix: "oldleecode-hidden-secret-" }),
+          ),
         ),
       );
       const withPolicy = <A, E>(

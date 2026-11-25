@@ -1,4 +1,4 @@
-// Starts real T3 Code dev environments for staging a launch video: fresh homes, fictional
+// Starts real Oldlee Code dev environments for staging a launch video: fresh homes, fictional
 // machine labels, the free replay agent, no paid provider. Import from a staging script.
 import * as NodeChildProcess from "node:child_process";
 import * as NodeCrypto from "node:crypto";
@@ -290,9 +290,9 @@ export async function openBrowser({ width = 1440, height = 720, args = [] } = {}
   const context = await browser.newContext({ viewport: { width, height }, colorScheme: "dark" });
   await context.addInitScript(() => {
     // "none" is what a release build shows: no dev or nightly artwork.
-    if (!localStorage.getItem("t3code:client-settings:v1")) {
+    if (!localStorage.getItem("oldleecode:client-settings:v1")) {
       localStorage.setItem(
-        "t3code:client-settings:v1",
+        "oldleecode:client-settings:v1",
         JSON.stringify({ environmentIdentificationMode: "none" }),
       );
     }

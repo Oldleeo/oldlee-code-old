@@ -1,8 +1,8 @@
 # MCP tool use
 
-Replays small fake threads on Claude and Codex models and checks how they use T3's MCP tools: delegation, PR linking, previews, scheduling, and more. Each case reproduces a real mistake an agent made in T3 Code.
+Replays small fake threads on Claude and Codex models and checks how they use T3's MCP tools: delegation, PR linking, previews, scheduling, and more. Each case reproduces a real mistake an agent made in Oldlee Code.
 
-The model sees what it sees in T3 Code. A trimmed capture of a real harness turn supplies the harness prompt and native tools. T3's instructions, tool descriptions, and schemas come from this checkout. A cheap model plays the shell, so nothing runs on your machine.
+The model sees what it sees in Oldlee Code. A trimmed capture of a real harness turn supplies the harness prompt and native tools. T3's instructions, tool descriptions, and schemas come from this checkout. A cheap model plays the shell, so nothing runs on your machine.
 
 ## Run
 
@@ -34,7 +34,7 @@ Check that the case builds with `--dry-run --case <id>`. Then run it on the text
 
 ## Device manager cases
 
-`cases/device-manager.ndjson` ports nine mechanisms from the [device-routing investigation described in #25661](https://github.com/pingdotgg/t3code/pull/25661) and adds seven cases from t3dotgg’s 2026-10-26 fleet device investigation. All prompts, files, hosts and prior turns are authored Acme data; the fleet cases cite finding ids without carrying source transcripts or identifiers.
+`cases/device-manager.ndjson` ports nine mechanisms from the [device-routing investigation described in #25661](https://github.com/oldleeo/oldlee-code/pull/25661) and adds seven cases from t3dotgg’s 2026-10-26 fleet device investigation. All prompts, files, hosts and prior turns are authored Acme data; the fleet cases cite finding ids without carrying source transcripts or identifiers.
 
 | Case           | Kind    | What it checks                                                                                                                                                                                     |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -306,7 +306,7 @@ Both arms see the same world. Shell mocks apply to either arm's commands, so an 
 
 Some cases are capability cases rather than mistake cases:
 
-- `cli-rate-limited-read` and `cli-auth-missing` assume T3 is signed in through the T3 Code for GitHub app, whose quota and token are separate from `gh`'s.
+- `cli-rate-limited-read` and `cli-auth-missing` assume T3 is signed in through the Oldlee Code for GitHub app, whose quota and token are separate from `gh`'s.
 - The git.cafe cases come in two forms. The plain ones say nothing about the forge. The `-instructed` ones put "use cafe" in the project instructions, as a maintained AGENTS.md would.
 
 ### Results
@@ -343,7 +343,7 @@ Errored samples are left out.
 
 `cli-merge-at-head-moved`, a control where the head moved past the reviewed commit, was added after these runs. On GPT-6.1 Sol both arms passed it 3/3: neither merged.
 
-**With the fixes.** "tools+fixes" (Sonnet, earlier git.cafe world) applied [#39899](https://github.com/pingdotgg/t3code/pull/39899), [#39901](https://github.com/pingdotgg/t3code/pull/39901), [#39903](https://github.com/pingdotgg/t3code/pull/39903) and [#39906](https://github.com/pingdotgg/t3code/pull/39906). It passed 42/42 with 2.5 model calls and 83 ktokens per sample, against 2.8 and 90 for "tools" on the same cases.
+**With the fixes.** "tools+fixes" (Sonnet, earlier git.cafe world) applied [#39899](https://github.com/oldleeo/oldlee-code/pull/39899), [#39901](https://github.com/oldleeo/oldlee-code/pull/39901), [#39903](https://github.com/oldleeo/oldlee-code/pull/39903) and [#39906](https://github.com/oldleeo/oldlee-code/pull/39906). It passed 42/42 with 2.5 model calls and 83 ktokens per sample, against 2.8 and 90 for "tools" on the same cases.
 
 Limits: the shell is simulated, so a CLI's output is the simulator's reading of the world and of the error texts the cases copy from real sessions. Polling never really waits, so these runs measure what polling decides, not the wall-clock time it takes. The simulator also sees the whole world, and early runs leaked it into invented files, such as an AGENTS.md naming `cafe` or a Forgejo API on git.cafe. The git.cafe worlds now rule both out. Read failing and passing transcripts before you trust a new case.
 
@@ -359,7 +359,7 @@ Limits: the shell is simulated, so a CLI's output is the simulator's reading of 
 
 `templates/` holds one trimmed capture per harness. Refresh them when a harness changes its prompt or native tools:
 
-1. Capture one T3 Code turn through CLIProxyAPI, with T3's MCP server connected.
+1. Capture one Oldlee Code turn through CLIProxyAPI, with T3's MCP server connected.
 2. From `evals/`, run `pnpm mcp-tool-use:trim-capture <claude|codex> <capture.json> mcp-tool-use/templates/<claude|codex>.json.gz`. It keeps only what `run.ts` reads, and removes user instructions, the user's own skills and agents, account ids, and home paths.
 3. Read the output for user data before you commit it: `zcat <file> | less`.
 4. Run the full eval on the old and new templates, and compare.

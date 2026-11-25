@@ -362,7 +362,7 @@ overrides:
 
 packageExtensionsChecksum: sha256-sOwfCxQ17OhFysHbDHotv94P7JKS/3BPThol+bv4jwo=
 
-pnpmfileChecksum: sha256-G0L7+qfid3Wo9BlLIlMyF/+fqBnAnqHKSe0HlWAtlg8=
+pnpmfileChecksum: sha256-/ib/V5sHV460HF6YkP5e9we9/RrHPX6HCkTkxWgwQbA=
 
 patchedDependencies:
   '@alchemy.run/test@2.0.0-beta.85': 29c0539ea71d9cc372f0b16558640599beb9bc609605feb2a493da268d72713e
@@ -371,7 +371,7 @@ patchedDependencies:
   '@effect/platform-node-shared@4.1.5': 06952843c6f431ca83c78762fd18d23cda76883801049ee311feced2438ecf14
   '@effect/vitest@4.1.5': dd0bf2b1ae0f63aff0d620ebc67b82d19759b3fa69a608ef85e2a5b40b4d46c5
   '@expo/ui@58.0.29': 2346ac02073363a401e85357e541055e9737bcbc1cdcb63e056cda9368fa79f6
-  '@ff-labs/fff-node@0.11.0': 93f62a76399b435a76588b2bef237db0a1e85880c1ac0d0759c416e9cc579252
+  '@ff-labs/fff-node@0.11.0': b4b990344ddd50b399c38d983aa4c4dbcf47aa150ce20c12ed5b4e4d63113856
   '@generaltranslation/format@0.1.9': 5712dc73770a30134376f9ef883e1a2e1814f007f95532725ba5ecc7b7812db3
   '@legendapp/list@3.9.0': c25646442029896901845e418ade4eaebb33cc101dc3bb4a38201f6923cf5e67
   '@muse-code/sdk@1.4.6': 7b495b607fc5d76b444c7c4d58821e839726a30e6f3c53564f0d59f2d5b42101
@@ -379,8 +379,8 @@ patchedDependencies:
   '@react-native-menu/menu@2.0.0': 6872ba71b9847c5a0210b1b896923dadc3860faedfe28d9f062bcedfe786ef1d
   '@react-navigation/native-stack@7.21.0': 990d575444c4af2ce8218b3b7a8280fe244c03abbdb32b822a2e862f791dbf42
   alchemy@2.0.0-beta.85: 07cc8c7e14b3b9af143ddd40a059f117c27e55139fbf20bd5dde2eb30509cedd
-  app-builder-lib@26.16.1: 0fbe9ae51783f5768ebe197d12d1fdb7d477a08c92e5db2f6356bcce62613c53
-  dbus-next@0.10.2: cfff57561b0ee59b5addb3b2e6c6f20906e967507a530ab67e8db8108e520ba4
+  app-builder-lib@26.16.1: 6b3077604679b053d521bff52cc0a34e87fb66a185543df94f4641bcc7b19909
+  dbus-next@0.10.2: 0373f13834e363a6426150e91c0efe10730b1e7a575c0e43d2f9fe8e9afb7393
   effect@4.1.5: 14a7acd734809d8dddbf2c19c4ec01fdd2ffae60a612de42b5ed29860216052a
   electron-updater@6.8.9: 91b5648a7eed42761523ef542ebb7e548b037eda41d66533c8152ac65ac72155
   expo-audio@58.0.12: ba2ac6874680097b41e03051641696887cc84e875ca157075aa7aeb33e200cb2
@@ -462,7 +462,7 @@ importers:
         version: link:../../packages/tailscale
       dbus-next:
         specifier: 0.10.2
-        version: 0.10.2(patch_hash=cfff57561b0ee59b5addb3b2e6c6f20906e967507a530ab67e8db8108e520ba4)
+        version: 0.10.2(patch_hash=0373f13834e363a6426150e91c0efe10730b1e7a575c0e43d2f9fe8e9afb7393)
       effect:
         specifier: 4.1.5
         version: 4.1.5(patch_hash=14a7acd734809d8dddbf2c19c4ec01fdd2ffae60a612de42b5ed29860216052a)
@@ -873,7 +873,7 @@ importers:
         version: 4.1.5(patch_hash=06952843c6f431ca83c78762fd18d23cda76883801049ee311feced2438ecf14)(bufferutil@4.1.0)(effect@4.1.5(patch_hash=14a7acd734809d8dddbf2c19c4ec01fdd2ffae60a612de42b5ed29860216052a))(utf-8-validate@6.0.6)
       '@ff-labs/fff-node':
         specifier: 0.11.0
-        version: 0.11.0(patch_hash=93f62a76399b435a76588b2bef237db0a1e85880c1ac0d0759c416e9cc579252)
+        version: 0.11.0(patch_hash=b4b990344ddd50b399c38d983aa4c4dbcf47aa150ce20c12ed5b4e4d63113856)
       '@muse-code/sdk':
         specifier: 1.4.6
         version: 1.4.6(patch_hash=7b495b607fc5d76b444c7c4d58821e839726a30e6f3c53564f0d59f2d5b42101)(@types/node@24.12.4)
@@ -1480,7 +1480,7 @@ importers:
         specifier: 1.8.0
         version: 1.8.0(@astrojs/compiler-rs@0.5.1)(@types/node@24.12.4)(@vitest/browser-playwright@5.1.1)(@vitest/ui@5.1.1)(@volar/typescript@2.4.28(typescript@6.0.3))(bufferutil@4.1.0)(esbuild@0.28.2)(jiti@2.7.0)(jsdom@30.1.0(@noble/hashes@1.8.0))(playwright@1.64.1)(terser@5.48.0)(typescript@6.0.3)(unrun@0.2.39)(utf-8-validate@6.0.6)(yaml@2.9.0)
 
-  oxlint-plugin-t3code:
+  oxlint-plugin-oldleecode:
     dependencies:
       '@oxlint/plugins':
         specifier: ^1.63.0
@@ -15351,7 +15351,7 @@ snapshots:
   '@ff-labs/fff-bin-win32-x64@0.11.0':
     optional: true
 
-  '@ff-labs/fff-node@0.11.0(patch_hash=93f62a76399b435a76588b2bef237db0a1e85880c1ac0d0759c416e9cc579252)':
+  '@ff-labs/fff-node@0.11.0(patch_hash=b4b990344ddd50b399c38d983aa4c4dbcf47aa150ce20c12ed5b4e4d63113856)':
     dependencies:
       ffi-rs: 1.3.2
     optionalDependencies:
@@ -18234,7 +18234,7 @@ snapshots:
 
   anynum@1.0.1: {}
 
-  app-builder-lib@26.16.1(patch_hash=0fbe9ae51783f5768ebe197d12d1fdb7d477a08c92e5db2f6356bcce62613c53)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1):
+  app-builder-lib@26.16.1(patch_hash=6b3077604679b053d521bff52cc0a34e87fb66a185543df94f4641bcc7b19909)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1):
     dependencies:
       '@electron/asar': 3.4.1
       '@electron/fuses': 1.8.0
@@ -18988,7 +18988,7 @@ snapshots:
 
   dateformat@4.6.3: {}
 
-  dbus-next@0.10.2(patch_hash=cfff57561b0ee59b5addb3b2e6c6f20906e967507a530ab67e8db8108e520ba4):
+  dbus-next@0.10.2(patch_hash=0373f13834e363a6426150e91c0efe10730b1e7a575c0e43d2f9fe8e9afb7393):
     dependencies:
       '@nornagon/put': 0.0.8
       event-stream: 3.3.4
@@ -19101,7 +19101,7 @@ snapshots:
 
   dmg-builder@26.16.1(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1):
     dependencies:
-      app-builder-lib: 26.16.1(patch_hash=0fbe9ae51783f5768ebe197d12d1fdb7d477a08c92e5db2f6356bcce62613c53)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1)
+      app-builder-lib: 26.16.1(patch_hash=6b3077604679b053d521bff52cc0a34e87fb66a185543df94f4641bcc7b19909)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1)
       builder-util: 26.16.0(supports-color@8.1.1)
       fs-extra: 10.1.0
       js-yaml: 4.3.2
@@ -19208,7 +19208,7 @@ snapshots:
 
   electron-builder-squirrel-windows@26.16.1(dmg-builder@26.16.1)(supports-color@8.1.1):
     dependencies:
-      app-builder-lib: 26.16.1(patch_hash=0fbe9ae51783f5768ebe197d12d1fdb7d477a08c92e5db2f6356bcce62613c53)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1)
+      app-builder-lib: 26.16.1(patch_hash=6b3077604679b053d521bff52cc0a34e87fb66a185543df94f4641bcc7b19909)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1)
       builder-util: 26.16.0(supports-color@8.1.1)
       electron-winstaller: 5.4.0(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -19217,7 +19217,7 @@ snapshots:
 
   electron-builder@26.16.1(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1):
     dependencies:
-      app-builder-lib: 26.16.1(patch_hash=0fbe9ae51783f5768ebe197d12d1fdb7d477a08c92e5db2f6356bcce62613c53)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1)
+      app-builder-lib: 26.16.1(patch_hash=6b3077604679b053d521bff52cc0a34e87fb66a185543df94f4641bcc7b19909)(dmg-builder@26.16.1)(electron-builder-squirrel-windows@26.16.1)(supports-color@8.1.1)
       builder-util: 26.16.0(supports-color@8.1.1)
       builder-util-runtime: 9.7.0(supports-color@8.1.1)
       chalk: 4.1.2

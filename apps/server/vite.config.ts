@@ -100,7 +100,7 @@ export default mergeConfig(
       plugins: [
         {
           // Every server module reads its version from this manifest import.
-          name: "t3code:build-version",
+          name: "oldleecode:build-version",
           load(id) {
             if (NodePath.resolve(id) !== serverManifestPath) return;
             return {

@@ -333,7 +333,7 @@ export function ServerBrowserSurface(props: {
     [pdfUrl, send],
   );
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- observes the canvas container's size, sends resizes to the stream and grows the frame cap
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- observes the canvas container's size, sends resizes to the stream and grows the frame cap
   useEffect(() => {
     const element = canvasRef.current?.parentElement;
     if (!element) return;
@@ -379,7 +379,7 @@ export function ServerBrowserSurface(props: {
     };
   }, [followSize]);
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- opens the preview stream client and paints its frames onto the canvas while visible
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- opens the preview stream client and paints its frames onto the canvas while visible
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!visible || accessDenied || hostSetup || !access || !cap || !canvas) return;
@@ -502,7 +502,7 @@ export function ServerBrowserSurface(props: {
     visible,
   ]);
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- registers a non-passive wheel listener on the canvas so it can stop the panel scrolling
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- registers a non-passive wheel listener on the canvas so it can stop the panel scrolling
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -523,7 +523,7 @@ export function ServerBrowserSurface(props: {
     return () => canvas.removeEventListener("wheel", onWheel);
   }, [pagePoint, queueWheel]);
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- cancels the pending input animation frame when the component unmounts
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- cancels the pending input animation frame when the component unmounts
   useEffect(
     () => () => {
       if (inputFrameRef.current !== null) cancelAnimationFrame(inputFrameRef.current);

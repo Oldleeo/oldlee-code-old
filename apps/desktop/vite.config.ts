@@ -17,7 +17,7 @@ const shouldLaunchElectronAfterPack = process.env.T3CODE_DESKTOP_DEV === "1";
 // tsdown runs onSuccess through a shell. dash forks instead of exec'ing the last command, which
 // would leave an `sh` between `vp pack` and the supervisor and hide `vp pack` dying from it.
 const devElectronCommand =
-  // oxlint-disable-next-line t3code/no-global-process-runtime -- Build config has no Effect runtime.
+  // oxlint-disable-next-line oldleecode/no-global-process-runtime -- Build config has no Effect runtime.
   NodeOS.platform() === "win32"
     ? "node scripts/dev-electron.mjs"
     : "exec node scripts/dev-electron.mjs";
@@ -35,7 +35,7 @@ const PAGE_WORLD_MODULE = /[\\/]src[\\/]preview[\\/]PageWorld\.ts$/;
  * that text is complete on its own.
  */
 const pageWorldFunction = (): Rolldown.Plugin => ({
-  name: "t3code:preview-page-world",
+  name: "oldleecode:preview-page-world",
   async load(id) {
     if (!PAGE_WORLD_MODULE.test(id)) return null;
     const bundle = await Rolldown.rolldown({ input: id, platform: "browser" });

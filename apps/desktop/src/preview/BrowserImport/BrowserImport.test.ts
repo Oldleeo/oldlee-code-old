@@ -65,7 +65,7 @@ const layerRejectedBeforeSession = Layer.succeed(
 
 const withImporter = Effect.fnUntraced(function* () {
   const fileSystem = yield* FileSystem.FileSystem;
-  const home = yield* fileSystem.makeTempDirectoryScoped({ prefix: "t3code-import-" });
+  const home = yield* fileSystem.makeTempDirectoryScoped({ prefix: "oldleecode-import-" });
   const layerEnvironment = Layer.succeed(HostProcess.Environment, { HOME: home });
   const context = yield* sourcePathContext.pipe(
     Effect.provideService(HostProcess.Environment, { HOME: home }),
@@ -83,7 +83,7 @@ const withImporter = Effect.fnUntraced(function* () {
         Layer.provide(DesktopManagedPolicy.layerTest()),
         Layer.provide(layerEnvironment),
         Layer.provide(Layer.succeed(HostProcess.Platform, "darwin")),
-        Layer.provide(Layer.succeed(HostProcess.ExecutablePath, "/Applications/T3 Code.app")),
+        Layer.provide(Layer.succeed(HostProcess.ExecutablePath, "/Applications/Oldlee Code.app")),
         Layer.provide(NodeServices.layer),
       ),
     ),
@@ -101,7 +101,7 @@ describe("BrowserImport.importCookies", () => {
     ({ platform, cookiePath }) =>
       Effect.gen(function* () {
         const fileSystem = yield* FileSystem.FileSystem;
-        const home = yield* fileSystem.makeTempDirectoryScoped({ prefix: "t3code-chromium-" });
+        const home = yield* fileSystem.makeTempDirectoryScoped({ prefix: "oldleecode-chromium-" });
         const root =
           platform === "darwin"
             ? `${home}/Library/Application Support/Chromium`
@@ -169,7 +169,7 @@ describe("BrowserImport.importCookies", () => {
               Layer.provide(DesktopManagedPolicy.layerTest()),
               Layer.provide(Layer.succeed(HostProcess.Environment, { HOME: home })),
               Layer.provide(Layer.succeed(HostProcess.Platform, platform)),
-              Layer.provide(Layer.succeed(HostProcess.ExecutablePath, "/fixture/t3code")),
+              Layer.provide(Layer.succeed(HostProcess.ExecutablePath, "/fixture/oldleecode")),
               Layer.provide(NodeServices.layer),
             ),
           ),
@@ -190,7 +190,7 @@ describe("BrowserImport.importCookies", () => {
               sourceProfileDirectory: "Default",
               targetProfileId: "default",
             },
-            scope: "persist:t3code-preview-test",
+            scope: "persist:oldleecode-preview-test",
             persistent: true,
           }),
           { imported: 1, skipped: 0, skippedDomains: [] },
@@ -229,7 +229,7 @@ describe("BrowserImport.importCookies", () => {
             sourceProfileDirectory: "../../../../secrets",
             targetProfileId: "default",
           },
-          scope: "persist:t3code-preview-test",
+          scope: "persist:oldleecode-preview-test",
           persistent: true,
         })
         .pipe(Effect.flip);
@@ -254,7 +254,7 @@ describe("BrowserImport.importCookies", () => {
               sourceProfileDirectory: "Default",
               targetProfileId: "default",
             },
-            scope: "persist:t3code-preview-test",
+            scope: "persist:oldleecode-preview-test",
             persistent: true,
           })
           .pipe(Effect.flip);
@@ -269,7 +269,9 @@ describe("BrowserImport.checkBrowserImportPolicy", () => {
   it.effect("allows imports unless a readable policy turns them off, and fails closed", () =>
     Effect.gen(function* () {
       const fileSystem = yield* FileSystem.FileSystem;
-      const dir = yield* fileSystem.makeTempDirectoryScoped({ prefix: "t3code-import-policy-" });
+      const dir = yield* fileSystem.makeTempDirectoryScoped({
+        prefix: "oldleecode-import-policy-",
+      });
       const outcome = (contents: string | undefined) =>
         Effect.gen(function* () {
           const policyPath = `${dir}/policy.json`;

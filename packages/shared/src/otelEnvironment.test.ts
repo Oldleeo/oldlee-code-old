@@ -412,7 +412,7 @@ describe("isRelayTracingEnabled", () => {
     assert.isTrue(OtelEnvironment.isRelayTracingEnabled({ DO_NOT_TRACK: "" }));
   });
 
-  it("defaults on and respects the T3CODE SDK override of the standard kill switch", () => {
+  it("defaults on and respects the OLDLEECODE SDK override of the standard kill switch", () => {
     assert.isTrue(OtelEnvironment.isRelayTracingEnabled({}));
     assert.isFalse(OtelEnvironment.isRelayTracingEnabled({ OTEL_SDK_DISABLED: "true" }));
     assert.isTrue(

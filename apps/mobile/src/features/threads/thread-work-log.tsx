@@ -178,7 +178,7 @@ export function ThreadDisclosureChevron(props: {
   const expandedAngle = props.collapsedDirection === "right" ? 90 : 180;
   const rotation = useSharedValue(props.expanded ? expandedAngle : 0);
 
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- drives the chevron's Reanimated rotation value when the expanded state changes
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- drives the chevron's Reanimated rotation value when the expanded state changes
   useLayoutEffect(() => {
     rotation.set(
       withTiming(props.expanded ? expandedAngle : 0, {
@@ -292,7 +292,7 @@ export function ShimmeringWorkContent(props: {
   // Uses a native Animated value instead of Reanimated, whose per-frame commits
   // starve React's while commit pausing is disabled (package.json). See
   // docs/internals/16_performance-regressions.md.
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- steps the native shimmer value on timers while visible and active, and stops them on cleanup
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- steps the native shimmer value on timers while visible and active, and stops them on cleanup
   useEffect(() => {
     progress.setValue(0);
     if (contentWidth <= 0 || reducedMotion || !appIsActive || !screenIsFocused) return;
@@ -638,7 +638,7 @@ function ThreadWorkGroupList(props: {
   const initialScrollIndex = resolveThreadWorkGroupInitialScroll(props.activities, initialPosition);
   const listRef = useRef<LegendListRef>(null);
   const previousTextSize = useRef(props.rowSizing.textSizeKey);
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- clears the list's cached row sizes when the text size changes
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- clears the list's cached row sizes when the text size changes
   useLayoutEffect(() => {
     if (previousTextSize.current === props.rowSizing.textSizeKey) return;
     previousTextSize.current = props.rowSizing.textSizeKey;
@@ -681,7 +681,7 @@ function ThreadWorkGroupList(props: {
     loadedRef.current = true;
     handleMetricsChange();
   };
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- subscribes to LegendList's totalSize state to report content height in the same commit
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- subscribes to LegendList's totalSize state to report content height in the same commit
   useLayoutEffect(() => {
     const state = listRef.current?.getState();
     if (!state) return;
@@ -707,7 +707,7 @@ function ThreadWorkGroupList(props: {
 
   return (
     <View style={{ height, overflow: "hidden" }}>
-      {/* oxlint-disable-next-line t3code/require-registered-list-scroll -- Nested in a fixed-height card inside the thread feed, which owns the header's scroll view. */}
+      {/* oxlint-disable-next-line oldleecode/require-registered-list-scroll -- Nested in a fixed-height card inside the thread feed, which owns the header's scroll view. */}
       <AnimatedLegendList
         ref={listRef}
         data={props.activities}

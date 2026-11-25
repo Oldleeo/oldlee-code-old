@@ -34,7 +34,7 @@ const compilePattern = (pattern: string) => {
 };
 const Policy = Schema.Struct({
   driver: TrimmedNonEmptyString,
-  t3CodeRange: VersionRange,
+  oldleeCodeRange: VersionRange,
   /** Matches a reported version that is not plain `X.Y.Z`; its first group is the version to rate. */
   versionPattern: Schema.optionalKey(
     TrimmedNonEmptyString.pipe(
@@ -74,10 +74,11 @@ export function resolveProviderCompatibility(
   policies: ReadonlyArray<ProviderCompatibilityPolicy> | undefined,
   driver: ProviderDriverKind,
   version: string | null,
-  t3CodeVersion = packageJson.version,
+  oldleeCodeVersion = packageJson.version,
 ): ServerProviderCompatibilityAdvisory | undefined {
   const policy = policies?.find(
-    (entry) => entry.driver === driver && satisfiesSemverRange(t3CodeVersion, entry.t3CodeRange),
+    (entry) =>
+      entry.driver === driver && satisfiesSemverRange(oldleeCodeVersion, entry.oldleeCodeRange),
   );
   if (!policy) return undefined;
   const unprefixed = version?.replace(/^v/, "");
@@ -91,11 +92,11 @@ export function resolveProviderCompatibility(
       : "unknown";
   const message =
     status === "broken"
-      ? "This provider version is known to be incompatible with this T3 Code release."
+      ? "This provider version is known to be incompatible with this Oldlee Code release."
       : status === "unsupported"
-        ? "This provider version is outside the supported range for this T3 Code release."
+        ? "This provider version is outside the supported range for this Oldlee Code release."
         : status === "graceful"
-          ? "This provider version has limited compatibility with this T3 Code release."
+          ? "This provider version has limited compatibility with this Oldlee Code release."
           : null;
   const recommendedVersion = policy.recommendedVersion ?? null;
   const recommendedRange = policy.recommendedRange ?? null;

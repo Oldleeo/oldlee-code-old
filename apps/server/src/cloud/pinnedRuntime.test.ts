@@ -190,7 +190,7 @@ it.layer(NodeServices.layer)("ensurePinnedRuntimeInstalled", (it) => {
             ),
           ),
           // "404" in the mirror's path must not read a server error as a missing release.
-          releaseBaseUrl: "https://updates.example.com/404/t3code",
+          releaseBaseUrl: "https://updates.example.com/404/oldleecode",
           runner: extractingRunner(fs, path),
           validate: () => Effect.die("must not validate a missing archive"),
         }).pipe(Effect.flip);
@@ -547,7 +547,7 @@ it.layer(NodeServices.layer)("ensurePinnedRuntimeInstalled", (it) => {
           arch: "x64",
           httpClient: releaseHttpClient(checksums, requests),
           // A signed mirror URL keeps its query on every file it serves.
-          releaseBaseUrl: "https://updates.example.com/t3code/?token=abc",
+          releaseBaseUrl: "https://updates.example.com/oldleecode/?token=abc",
           requirePublishedRelease: true,
           runner: extractingRunner(fs, path),
           validate: () => Effect.void,
@@ -559,7 +559,7 @@ it.layer(NodeServices.layer)("ensurePinnedRuntimeInstalled", (it) => {
       assert.equal((yield* install(yield* validChecksums, requests)).entryPath, cached.entryPath);
       // Listed, so the cached runtime is used without downloading it again.
       assert.deepEqual(requests, [
-        `https://updates.example.com/t3code/v${version}/SHA256SUMS?token=abc`,
+        `https://updates.example.com/oldleecode/v${version}/SHA256SUMS?token=abc`,
       ]);
     }),
   );

@@ -313,7 +313,7 @@ function WorkEntryLogRow(props: WorkEntryRowProps) {
       : null;
   const labelRef = useRef<HTMLSpanElement>(null);
   const [noticeCutOff, setNoticeCutOff] = useState(false);
-  // oxlint-disable-next-line t3code/no-unreasoned-state-sync -- only layout knows whether a notice fits its row
+  // oxlint-disable-next-line oldleecode/no-unreasoned-state-sync -- only layout knows whether a notice fits its row
   useLayoutEffect(() => {
     const label = labelRef.current;
     if (!label || noticeMessage === null) return;

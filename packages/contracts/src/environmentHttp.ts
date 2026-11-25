@@ -215,7 +215,7 @@ export class EnvironmentScopeRequiredError extends Schema.TaggedError<Environmen
   }
 }
 
-/** The host requires approval for this T3 Connect device and nobody has given it yet. */
+/** The host requires approval for this Oldlee Connect device and nobody has given it yet. */
 export class EnvironmentConnectApprovalPendingError extends Schema.TaggedError<EnvironmentConnectApprovalPendingError>()(
   "EnvironmentConnectApprovalPendingError",
   {
@@ -477,7 +477,7 @@ export const EnvironmentConnectReachabilityCause = Schema.Literals([
 ]);
 export type EnvironmentConnectReachabilityCause = typeof EnvironmentConnectReachabilityCause.Type;
 
-/** Whether other devices can reach this environment through its T3 Connect tunnel. */
+/** Whether other devices can reach this environment through its Oldlee Connect tunnel. */
 export const EnvironmentConnectReachability = Schema.Union([
   Schema.Struct({
     status: Schema.Literal("reachable"),
@@ -528,7 +528,7 @@ export type T3ConnectTroubleshootingSection = (typeof T3_CONNECT_TROUBLESHOOTING
 
 /** Clients, the CLI, and server logs link here as "More info". */
 export function t3ConnectTroubleshootingUrl(section: T3ConnectTroubleshootingSection): string {
-  return `https://github.com/pingdotgg/t3code/blob/main/docs/user/t3-connect-troubleshooting.md#${section}`;
+  return `https://github.com/oldleeo/oldlee-code/blob/main/docs/user/t3-connect-troubleshooting.md#${section}`;
 }
 
 const REACHABILITY_SECTION = {
@@ -704,7 +704,7 @@ class EnvironmentMcpOAuthHttpApi extends HttpApiGroup.make("mcpOAuth")
   .add(HttpApiEndpoint.get("authorize", "/oauth/mcp/authorize"))
   .add(
     HttpApiEndpoint.post("approval", "/oauth/mcp/approval", {
-      // The hosted app sends the owner's T3 Connect credential; the environment's own page uses its cookie.
+      // The hosted app sends the owner's Oldlee Connect credential; the environment's own page uses its cookie.
       headers: OptionalBearerHeaders,
       payload: AuthMcpAuthorizationRequest,
       success: [AuthMcpApprovalDetails, AuthMcpApprovalRedirect],
@@ -713,7 +713,7 @@ class EnvironmentMcpOAuthHttpApi extends HttpApiGroup.make("mcpOAuth")
   )
   .add(
     HttpApiEndpoint.post("decision", "/oauth/mcp/decision", {
-      // The hosted app sends the owner's T3 Connect credential; the environment's own page uses its cookie.
+      // The hosted app sends the owner's Oldlee Connect credential; the environment's own page uses its cookie.
       headers: OptionalBearerHeaders,
       payload: AuthMcpApprovalDecisionRequest,
       success: AuthMcpApprovalRedirect,

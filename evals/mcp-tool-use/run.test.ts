@@ -651,7 +651,7 @@ const template = {
     {
       role: "system",
       content:
-        "Main prompt.\n - Primary working directory: /home/alice/app\n\n<runtime_info>old</runtime_info>\n\n## T3 Code orchestration\nold text",
+        "Main prompt.\n - Primary working directory: /home/alice/app\n\n<runtime_info>old</runtime_info>\n\n## Oldlee Code orchestration\nold text",
     },
     {
       role: "system",
@@ -705,7 +705,7 @@ it("rebuilds the template from this checkout and sends a child T3's task prompt"
     `Main prompt.\n - Primary working directory: /home/user/app\n\n${t3SystemAppend("claude-sonnet-5-5")}`,
   ]);
   // The eval offers the device tools, so Claude's append carries the device block.
-  assert.include(t3SystemAppend("claude-sonnet-5-5"), "## T3 Code devices");
+  assert.include(t3SystemAppend("claude-sonnet-5-5"), "## Oldlee Code devices");
   assert.equal(base.environment.cwd, "/home/user/app");
   assert.include(system[2], "model named Sonnet 5.5. The exact model ID is claude-sonnet-5-5.");
   const deferred = system[2]?.split("Load them first:\n")[1]?.split("\n\n")[0]?.split("\n") ?? [];
@@ -1765,7 +1765,7 @@ it.effect("fails preview calls with T3's errors when browser access is off or a 
         is_error: true,
         content: off,
       });
-    assert.notInclude(t3SystemAppend("claude-sonnet-5-5", true, false), "## T3 Code browser");
+    assert.notInclude(t3SystemAppend("claude-sonnet-5-5", true, false), "## Oldlee Code browser");
     const unsupported = "br-guard-preview-open-unsupported";
     assert.deepInclude(yield* answer(unsupported, "preview_open"), {
       is_error: true,
@@ -1893,7 +1893,7 @@ it.effect("builds the secrets cases, each citing a finding and grading secret ha
       );
       assert.match(
         String(testCase.source?.finding ?? testCase.source?.issue),
-        /^(?:secret-field-2026-1[01] |pingdotgg\/t3code#\d+$)/,
+        /^(?:secret-field-2026-1[01] |pingdotgg\/oldleecode#\d+$)/,
         testCase.id,
       );
       assert.isTrue(testCase.expect.secret?.chatAsk, testCase.id);

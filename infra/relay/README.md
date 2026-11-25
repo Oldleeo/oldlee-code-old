@@ -1,22 +1,22 @@
-# T3 Connect Relay
+# Oldlee Connect Relay
 
 > [!NOTE]
-> Sign in to T3 Connect from the app under Settings > Sharing & access.
+> Sign in to Oldlee Connect from the app under Settings > Sharing & access.
 
-The relay is the hosted control plane for T3 Connect. It helps clients discover and connect to
+The relay is the hosted control plane for Oldlee Connect. It helps clients discover and connect to
 remote environments, manages the cloud-side records needed for those connections, and delivers
 optional mobile notifications and Live Activities.
 
-The relay is intentionally not in the hot path for normal T3 Code traffic. After a client connects,
+The relay is intentionally not in the hot path for normal Oldlee Code traffic. After a client connects,
 regular API and WebSocket traffic goes directly between that client and the selected environment.
-See the [T3 Connect architecture note](../../docs/internals/06_t3-connect.md) for the larger system
+See the [Oldlee Connect architecture note](../../docs/internals/06_t3-connect.md) for the larger system
 design.
 
 ## Responsibilities
 
 The relay currently owns:
 
-- Linking T3 Code environments to a cloud account.
+- Linking Oldlee Code environments to a cloud account.
 - Provisioning and tracking managed environment endpoints.
 - Issuing short-lived credentials used to connect clients to linked environments.
 - Listing linked environments and registered mobile devices for an account.
@@ -76,11 +76,11 @@ dependencies represented at their boundary rather than mocking internal behavior
 
 ## Deployment
 
-The relay deploys with the Alchemy CLI (`vp run --filter t3code-relay deploy` is `alchemy deploy`
+The relay deploys with the Alchemy CLI (`vp run --filter oldleecode-relay deploy` is `alchemy deploy`
 in this directory):
 
 ```sh
-vp run --filter t3code-relay deploy
+vp run --filter oldleecode-relay deploy
 ```
 
 The stack provisions the Cloudflare Worker and queues, managed endpoint resources, database
@@ -97,8 +97,8 @@ PlanetScale branch and runtime role for local development, so deploy `prod` befo
 developer stages:
 
 ```sh
-vp run --filter t3code-relay deploy -- --stage prod
-vp run --filter t3code-relay deploy -- --env-file .env.local
+vp run --filter oldleecode-relay deploy -- --stage prod
+vp run --filter oldleecode-relay deploy -- --env-file .env.local
 ```
 
 Alchemy defaults personal deployments to the `dev_$USER` stage. Relay custom domains apply the same
@@ -172,6 +172,6 @@ and hosted web builds.
 
 See:
 
-- [T3 Connect setup](../../docs/operations/02_connect-setup.md) for Clerk keys, JWT templates, and sign-up restrictions.
+- [Oldlee Connect setup](../../docs/operations/02_connect-setup.md) for Clerk keys, JWT templates, and sign-up restrictions.
 - [Relay Observability](../../docs/operations/05_relay-observability.md) for deployment tracing and diagnostics.
-- [T3 Connect architecture](../../docs/internals/06_t3-connect.md) for environment linking and trust boundaries.
+- [Oldlee Connect architecture](../../docs/internals/06_t3-connect.md) for environment linking and trust boundaries.

@@ -776,7 +776,7 @@ const createTrace2Monitor = Effect.fnUntraced(function* (
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const traceFilePath = yield* fs.makeTempFileScoped({
-    prefix: `t3code-git-trace2-${process.pid}-`,
+    prefix: `oldleecode-git-trace2-${process.pid}-`,
     suffix: ".json",
   });
   const hookStartByChildKey = new Map<string, { hookName: string; startedAtMs: number }>();
@@ -1621,7 +1621,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
     // named like Git's own quarantine so `git gc` prunes one a crash left. A dry run downloads
     // without moving refs, which must not point at objects the repository does not hold yet.
     const isolatedFetch = Effect.acquireUseRelease(
-      fileSystem.makeTempDirectory({ directory: objectsPath, prefix: "tmp_objdir-t3code-" }),
+      fileSystem.makeTempDirectory({ directory: objectsPath, prefix: "tmp_objdir-oldleecode-" }),
       Effect.fnUntraced(function* (privateObjects) {
         const objectDirectories = yield* runGitStdout(
           "GitVcsDriver.fetchRemoteForStatus.alternates",
@@ -1910,7 +1910,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
     }
     const repository = yield* resolveRepositoryPaths(cwd);
     if (repository?.worktreeRoot == null) return null;
-    // The cached branch outlives a checkout made outside T3 Code, so it is read fresh.
+    // The cached branch outlives a checkout made outside Oldlee Code, so it is read fresh.
     const currentBranch = needsCurrentBranch
       ? yield* readCurrentBranch("GitVcsDriver.review.currentBranch", cwd)
       : null;
@@ -1948,7 +1948,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
       }),
     {
       capacity: 2_048,
-      // A remote added outside T3 Code must show on the next status read, so only a hit is kept.
+      // A remote added outside Oldlee Code must show on the next status read, so only a hit is kept.
       timeToLive: Exit.match({
         onSuccess: (exists) => (exists ? STATUS_ORIGIN_EXISTS_CACHE_TTL : Duration.zero),
         onFailure: () => Duration.zero,
@@ -3457,7 +3457,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
           const physicalCwd = yield* fileSystem.realPath(cwd);
           const indexPath = path.resolve(physicalCwd, indexValue.trim());
           const directory = yield* fileSystem.makeTempDirectoryScoped({
-            prefix: "t3code-commit-index-",
+            prefix: "oldleecode-commit-index-",
           });
           const tempIndexPath = path.join(directory, "index");
           // Staging writes blobs; put them in the temp directory so a draft leaves nothing behind.
@@ -4325,7 +4325,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
     const omitted = pathsToAdd.length < candidates.length;
     if (pathsToAdd.length === 0 || (omitted && !allowPartial)) return { env: undefined, omitted };
 
-    const prefix = `t3code-review-index-${process.pid}-`;
+    const prefix = `oldleecode-review-index-${process.pid}-`;
     // The pathspec excludes every other entry, so an index holding only the added paths diffs
     // the same as a copy of the real one. Git reads the missing file as an empty index.
     const tempIndexPath = isolated
@@ -5729,7 +5729,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
         };
       }
 
-      // Both caches outlive a checkout made outside T3 Code, so this checkout's branch is read
+      // Both caches outlive a checkout made outside Oldlee Code, so this checkout's branch is read
       // on every call and replaces whatever the cached snapshot claims for it.
       const [snapshot, currentBranch] = yield* Effect.all(
         [
@@ -5741,7 +5741,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
         { concurrency: 2 },
       );
       const { worktreeRoot } = repositoryPaths;
-      // The snapshot misses a branch created outside T3 Code until it refreshes. An unborn HEAD
+      // The snapshot misses a branch created outside Oldlee Code until it refreshes. An unborn HEAD
       // names a branch with no ref yet, so the ref must exist before it is listed.
       const currentBranchUnlisted =
         currentBranch !== null && !snapshot.localBranches.some((ref) => ref.name === currentBranch);
@@ -6450,7 +6450,7 @@ export const makeGitVcsDriverCore = Effect.fn("makeGitVcsDriverCore")(function* 
         yield* executeGit(
           "GitVcsDriver.refreshCheckedOutBranch.keepPrevious",
           input.cwd,
-          ["update-ref", "refs/t3code/pre-refresh", headCommit],
+          ["update-ref", "refs/oldleecode/pre-refresh", headCommit],
           { fallbackErrorDetail: "git failed to record the previous checkout commit" },
         );
       }
