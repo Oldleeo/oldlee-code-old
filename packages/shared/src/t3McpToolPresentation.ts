@@ -110,7 +110,7 @@ function tool(
 const T3_MCP_SERVER_ALIASES = new Set([
   "t3-code",
   "t3_code",
-  "t3code",
+  "oldleecode",
   "t3-code-direct",
   "t3_code_direct",
 ]);
@@ -479,18 +479,19 @@ function parseT3McpToolName(value: string): string | null {
   }
 
   const namespaceMatch =
-    /^(?<server>t3[-_]code[-_]direct|t3-code|t3_code|t3code)(?:[.:/]|\s*·\s*)(?<tool>.+)$/i.exec(
+    /^(?<server>t3[-_]code[-_]direct|t3-code|t3_code|oldlee[-_ ]?code|oldleecode)(?:[.:/]|\s*·\s*)(?<tool>.+)$/i.exec(
       label,
     );
   if (namespaceMatch?.groups) {
     return namespaceMatch.groups.tool ?? null;
   }
 
-  const prefixed = /^(?:mcp[-_]{1,2})?t3[-_ ]?code(?:__|[-_.:/ ])(?<tool>.+)$/i.exec(label);
+  const prefixed =
+    /^(?:mcp[-_]{1,2})?(?:t3[-_ ]?code|oldlee[-_ ]?code)(?:__|[-_.:/ ])(?<tool>.+)$/i.exec(label);
   const candidate = prefixed?.groups?.tool ?? label;
   if (Object.hasOwn(T3_MCP_TOOLS, candidate)) return candidate;
   // OpenCode 2 thread prefixes can contain underscores; choose the longest known tool-name suffix.
-  if (!/^t3-code-/i.test(label)) return null;
+  if (!/^(?:t3-code-|oldlee-code-)/i.test(label)) return null;
   let longest: string | null = null;
   for (const tool of Object.keys(T3_MCP_TOOLS)) {
     if (label.endsWith(`_${tool}`) && tool.length > (longest?.length ?? 0)) longest = tool;

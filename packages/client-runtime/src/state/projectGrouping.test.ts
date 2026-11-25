@@ -80,16 +80,16 @@ describe("load balancing shared project machines", () => {
   });
 });
 const repositoryIdentity = {
-  canonicalKey: "github.com/t3tools/t3code",
+  canonicalKey: "github.com/oldleeo/oldlee-code",
   locator: {
     source: "git-remote" as const,
     remoteName: "upstream",
-    remoteUrl: "https://github.com/t3tools/t3code.git",
+    remoteUrl: "https://github.com/oldleeo/oldlee-code.git",
   },
   provider: SourceControlProviderKind.make("github"),
   owner: "t3tools",
-  name: "t3code",
-  displayName: "T3 Code",
+  name: "oldleecode",
+  displayName: "Oldlee Code",
 };
 
 function makeProject(
@@ -249,18 +249,18 @@ describe("buildProjectGroups", () => {
 
   it("preserves every physical clone as a selectable member in repository modes", () => {
     const projects = [
-      makeProject("t3code", "/work/t3code"),
-      makeProject("t3code-2", "/work/t3code-2"),
-      makeProject("t3code-3", "/work/t3code-3"),
+      makeProject("oldleecode", "/work/oldleecode"),
+      makeProject("oldleecode-2", "/work/oldleecode-2"),
+      makeProject("oldleecode-3", "/work/oldleecode-3"),
     ];
 
     for (const mode of ["repository", "repository_path"] as const) {
       const groups = buildProjectGroups({ projects, settings: settings(mode) });
       expect(groups).toHaveLength(1);
       expect(groups[0]?.members.map((member) => member.project.id)).toEqual([
-        "t3code",
-        "t3code-2",
-        "t3code-3",
+        "oldleecode",
+        "oldleecode-2",
+        "oldleecode-3",
       ]);
       expect(groups[0]?.memberProjectRefs).toHaveLength(3);
     }
@@ -315,41 +315,41 @@ describe("buildProjectGroups", () => {
   });
 
   it("keeps a fork apart from its upstream checkout and labels it by its own remote", () => {
-    const fork = makeProject("fork", "/work/t3code-fork", {
+    const fork = makeProject("fork", "/work/oldleecode-fork", {
       repositoryIdentity: {
         ...repositoryIdentity,
         origin: {
-          canonicalKey: "github.com/julius/t3code-fork",
-          displayName: "julius/t3code-fork",
+          canonicalKey: "github.com/julius/oldleecode-fork",
+          displayName: "julius/oldleecode-fork",
         },
       },
     });
-    const forkWorktree = makeProject("fork-2", "/work/t3code-fork-2", {
+    const forkWorktree = makeProject("fork-2", "/work/oldleecode-fork-2", {
       repositoryIdentity: fork.repositoryIdentity,
     });
-    const projects = [makeProject("t3code", "/work/t3code"), fork, forkWorktree];
+    const projects = [makeProject("oldleecode", "/work/oldleecode"), fork, forkWorktree];
 
     const groups = buildProjectGroups({ projects, settings: settings("repository") });
     expect(groups.map((group) => group.key)).toEqual([
-      "github.com/t3tools/t3code",
-      "github.com/julius/t3code-fork",
+      "github.com/oldleeo/oldlee-code",
+      "github.com/julius/oldleecode-fork",
     ]);
     expect(groups[1]?.members.map((member) => member.project.id)).toEqual(["fork", "fork-2"]);
-    expect(groups[1]?.label).toBe("julius/t3code-fork");
+    expect(groups[1]?.label).toBe("julius/oldleecode-fork");
   });
 
   // regression: #15049 a rename to the repository name snapped back to the display path
   it("labels a renamed group by its title even when it matches the repository name", () => {
     const folderTitles = [
-      makeProject("t3code", "/work/t3code", { title: "t3code" }),
-      makeProject("t3code-2", "/work/t3code-2", { title: "t3code" }),
+      makeProject("oldleecode", "/work/oldleecode", { title: "oldleecode" }),
+      makeProject("oldleecode-2", "/work/oldleecode-2", { title: "oldleecode" }),
     ];
     const renamed = folderTitles.map((project) => ({ ...project, hasCustomTitle: true }));
 
     const label = (projects: ReadonlyArray<EnvironmentProject>) =>
       buildProjectGroups({ projects, settings: settings("repository") })[0]?.label;
-    expect(label(folderTitles)).toBe("T3 Code");
-    expect(label(renamed)).toBe("t3code");
+    expect(label(folderTitles)).toBe("Oldlee Code");
+    expect(label(renamed)).toBe("oldleecode");
   });
 
   it("labels a group by its repository when clones disagree on its casing", () => {
@@ -359,7 +359,7 @@ describe("buildProjectGroups", () => {
     const root = makeProject("NewCo", "/work/NewCo");
     const lowercasedClone = makeProject("NewCo", "/remote/NewCo", {
       environmentId: EnvironmentId.make("remote"),
-      repositoryIdentity: { ...repositoryIdentity, name: "T3CODE", displayName: "t3 code" },
+      repositoryIdentity: { ...repositoryIdentity, name: "OLDLEECODE", displayName: "oldlee code" },
     });
 
     const groups = buildProjectGroups({
@@ -368,38 +368,38 @@ describe("buildProjectGroups", () => {
       preferredEnvironmentId: environmentId,
     });
     expect(groups).toHaveLength(1);
-    expect(groups[0]?.label).toBe("T3 Code");
+    expect(groups[0]?.label).toBe("Oldlee Code");
 
     // A subfolder group in repository_path mode keeps its own title.
-    const localIdentity = { ...repositoryIdentity, rootPath: "/work/t3code" };
+    const localIdentity = { ...repositoryIdentity, rootPath: "/work/oldleecode" };
     const pathGroups = buildProjectGroups({
       projects: [
-        makeProject("design", "/work/t3code/design", {
+        makeProject("design", "/work/oldleecode/design", {
           title: "Design docs",
           hasCustomTitle: true,
           repositoryIdentity: localIdentity,
         }),
-        makeProject("design", "/remote/t3code/design", {
+        makeProject("design", "/remote/oldleecode/design", {
           environmentId: EnvironmentId.make("remote"),
           repositoryIdentity: {
             ...repositoryIdentity,
-            rootPath: "/remote/t3code",
-            name: "T3CODE",
-            displayName: "t3 code",
+            rootPath: "/remote/oldleecode",
+            name: "OLDLEECODE",
+            displayName: "oldlee code",
           },
         }),
-        makeProject("t3code", "/work/t3code", { repositoryIdentity: localIdentity }),
+        makeProject("oldleecode", "/work/oldleecode", { repositoryIdentity: localIdentity }),
       ],
       settings: settings("repository_path"),
       preferredEnvironmentId: environmentId,
     });
-    expect(pathGroups.map((group) => group.label)).toEqual(["Design docs", "t3code"]);
+    expect(pathGroups.map((group) => group.label)).toEqual(["Design docs", "oldleecode"]);
   });
 
   it("applies a physical-project override without dropping its siblings", () => {
-    const first = makeProject("t3code", "/work/t3code");
-    const second = makeProject("t3code-2", "/work/t3code-2");
-    const third = makeProject("t3code-3", "/work/t3code-3");
+    const first = makeProject("oldleecode", "/work/oldleecode");
+    const second = makeProject("oldleecode-2", "/work/oldleecode-2");
+    const third = makeProject("oldleecode-3", "/work/oldleecode-3");
     const groups = buildProjectGroups({
       projects: [first, second, third],
       settings: settings("repository", {
@@ -409,18 +409,18 @@ describe("buildProjectGroups", () => {
 
     expect(groups).toHaveLength(2);
     expect(groups.flatMap((group) => group.members.map((member) => member.project.id))).toEqual([
-      "t3code",
-      "t3code-3",
-      "t3code-2",
+      "oldleecode",
+      "oldleecode-3",
+      "oldleecode-2",
     ]);
   });
 
   it("dedupes stale registrations at one physical path using the freshest project", () => {
-    const stale = makeProject("stale", "/work/t3code", {
+    const stale = makeProject("stale", "/work/oldleecode", {
       repositoryIdentity: null,
       updatedAt: "2026-07-01T00:00:00.000Z",
     });
-    const fresh = makeProject("fresh", "/work/t3code/", {
+    const fresh = makeProject("fresh", "/work/oldleecode/", {
       updatedAt: "2026-07-02T00:00:00.000Z",
     });
 
@@ -441,14 +441,14 @@ describe("buildProjectGroups", () => {
       name: "old-repository",
       displayName: "Old Repository",
     };
-    const stale = makeProject("stale", "/work/t3code", {
+    const stale = makeProject("stale", "/work/oldleecode", {
       repositoryIdentity: staleIdentity,
       updatedAt: "2026-07-01T00:00:00.000Z",
     });
-    const fresh = makeProject("fresh", "/work/t3code/", {
+    const fresh = makeProject("fresh", "/work/oldleecode/", {
       updatedAt: "2026-07-02T00:00:00.000Z",
     });
-    const sibling = makeProject("sibling", "/work/t3code-2");
+    const sibling = makeProject("sibling", "/work/oldleecode-2");
 
     const groups = buildProjectGroups({
       projects: [stale, fresh, sibling],
@@ -465,18 +465,18 @@ describe("buildProjectGroups", () => {
       name: "old-repository",
       displayName: "Old Repository",
     };
-    const staleIdentified = makeProject("stale-identified", "/work/t3code", {
+    const staleIdentified = makeProject("stale-identified", "/work/oldleecode", {
       repositoryIdentity: staleIdentity,
       updatedAt: "2026-07-01T00:00:00.000Z",
     });
-    const freshIdentified = makeProject("fresh-identified", "/work/t3code/", {
+    const freshIdentified = makeProject("fresh-identified", "/work/oldleecode/", {
       updatedAt: "2026-07-02T00:00:00.000Z",
     });
-    const winner = makeProject("winner", "/work/t3code", {
+    const winner = makeProject("winner", "/work/oldleecode", {
       repositoryIdentity: null,
       updatedAt: "2026-07-03T00:00:00.000Z",
     });
-    const sibling = makeProject("sibling", "/work/t3code-2");
+    const sibling = makeProject("sibling", "/work/oldleecode-2");
 
     const groups = buildProjectGroups({
       projects: [staleIdentified, freshIdentified, winner, sibling],
@@ -494,8 +494,8 @@ describe("project pins and archives", () => {
     buildProjectGroups({ projects, settings: settings("repository") })[0]!;
 
   it("keeps a project visible while its machines disagree", () => {
-    const local = makeProject("local", "/work/t3code");
-    const other = makeProject("remote", "/work/t3code", { environmentId: remote });
+    const local = makeProject("local", "/work/oldleecode");
+    const other = makeProject("remote", "/work/oldleecode", { environmentId: remote });
     const partial = group({ ...local, pinnedAt: at, archivedAt: at }, other);
     expect(partial).toMatchObject({ pinned: true, archived: false });
     expect(group({ ...local, archivedAt: at }, { ...other, archivedAt: at }).archived).toBe(true);

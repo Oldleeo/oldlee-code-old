@@ -1102,7 +1102,7 @@ describe("relay environment unlink", () => {
                   environmentId: "environment-1",
                   hostname: "dev-0123456789abcdef.example.test",
                   tunnelId: "tunnel-1",
-                  tunnelName: `t3coderelay-managedendpoint-dev-${endpointKey}`,
+                  tunnelName: `oldleecoderelay-managedendpoint-dev-${endpointKey}`,
                   dnsRecordId: "dns-1",
                   readyAt: "2026-07-28T00:00:00.000Z",
                   tunnelReleasedAt: null,
@@ -1410,7 +1410,7 @@ describe("relay request tracing", () => {
       const request = HttpServerRequest.fromWeb(
         new Request("https://relay.test/v1/mobile/devices", {
           method: "POST",
-          headers: { "user-agent": "T3Code/2.3.0 iPhone" },
+          headers: { "user-agent": "OldleeCode/2.3.0 iPhone" },
         }),
       ).modify({ remoteAddress: Option.some("203.0.113.9") });
 
@@ -1420,7 +1420,9 @@ describe("relay request tracing", () => {
 
       expect(spans[0]?.attributes.get("client.address")).toBeUndefined();
       expect(spans[0]?.attributes.get("user_agent.original")).toBeUndefined();
-      expect(seen).toEqual([{ remoteAddress: "203.0.113.9", userAgent: "T3Code/2.3.0 iPhone" }]);
+      expect(seen).toEqual([
+        { remoteAddress: "203.0.113.9", userAgent: "OldleeCode/2.3.0 iPhone" },
+      ]);
     }),
   );
 });

@@ -14,15 +14,15 @@ describe("resolveT3McpToolPresentation", () => {
       for (const prefix of [
         "mcp__t3-code__",
         "mcp__t3_code__",
-        "mcp__t3code__",
+        "mcp__oldleecode__",
         "T3-code.",
-        "t3code.",
+        "oldleecode.",
         "t3-code-direct.",
         "mcp__t3_code_direct__",
         "t3_code/",
-        "t3code:",
+        "oldleecode:",
         "mcp_t3-code_",
-        "T3 Code ",
+        "Oldlee Code ",
         "t3-code · ",
       ]) {
         expect(resolveT3McpToolPresentation(`${prefix}${tool} completed`), tool).toEqual(

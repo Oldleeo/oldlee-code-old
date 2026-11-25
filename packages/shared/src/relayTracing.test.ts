@@ -114,7 +114,12 @@ it.effect.each([true, false])("filters relay exports at flush (%s)", (enabledAtF
     Layer.provide(
       layer(
         { tracesUrl: "https://traces.example.com", tracesDataset: "relay", tracesToken: "token" },
-        { serviceName: "t3code-test", runtime: "node", serviceInstanceId: "id", client: "test" },
+        {
+          serviceName: "oldleecode-test",
+          runtime: "node",
+          serviceInstanceId: "id",
+          client: "test",
+        },
         { isEnabled: () => enabled },
       ),
     ),

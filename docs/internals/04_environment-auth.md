@@ -1,7 +1,7 @@
 # Environment authentication
 
 The environment issues its own sessions and enforces their capabilities. Cloud identity and relay
-credentials belong to a separate trust boundary, described in [T3 Connect](./06_t3-connect.md). A relay
+credentials belong to a separate trust boundary, described in [Oldlee Connect](./06_t3-connect.md). A relay
 token is never an environment login. See [SECURITY.md](../../SECURITY.md) for the overall threat
 model.
 
@@ -13,7 +13,7 @@ model.
   returns a credential to the caller requires `access:write` and every scope that credential
   carries: a pairing link, an MCP sign-in approval, a link code from a linked environment, and a
   guest link (which reads a thread). Revoking is not capped by the caller's scopes. Admitting a
-  T3 Connect device is not delegation; see [T3 Connect](./06_t3-connect.md).
+  Oldlee Connect device is not delegation; see [Oldlee Connect](./06_t3-connect.md).
 - **Why the default grant includes management scopes.** `terminal:operate` and
   `orchestration:operate` already grant OS-user execution (which can invoke `t3 auth session issue`),
   so withholding access or relay management from the default grant would not be a real boundary.
@@ -23,7 +23,7 @@ model.
 - **DPoP binding.** Browser cookies, bearer tokens, and DPoP tokens share the scoped session model.
   DPoP binds tokens to a client proof key; an invalid proof must fail rather than fall back to
   bearer auth. Plain paired DPoP sessions renew in place so live sockets and Sharing & access rows
-  stay stable; T3 Connect, CLI, and desktop sessions never self-renew so revoking/unlinking cuts
+  stay stable; Oldlee Connect, CLI, and desktop sessions never self-renew so revoking/unlinking cuts
   them off.
 - **WebSocket tickets and per-RPC authorization.** Bearer and DPoP clients mint short-lived tickets
   over authenticated HTTP so long-lived tokens never appear in socket URLs. DPoP RPC tickets stay
@@ -46,7 +46,7 @@ model.
 - **Guest links are not sessions.** [GuestShareService](../../apps/server/src/guest/GuestShareService.ts)
   issues HMAC tokens bound to one share in the thread projection—never `SessionStore` rows—so no
   RPC, WebSocket, or MCP route can accept one. Closing, replacing, or archiving the share revokes
-  every token. Guest routes also require T3 Connect to still serve the link's hostname (never rely
+  every token. Guest routes also require Oldlee Connect to still serve the link's hostname (never rely
   on the request `Host` header alone).
 - **MCP clients (`mcp-client`) are a separate audience.** Outside agents authenticate on `/mcp` via
   PKCE OAuth ([McpOAuth](../../apps/server/src/auth/McpOAuth.ts)), with stateless client
@@ -64,7 +64,7 @@ model.
   client session holding `terminal:operate` approved its exact text for that project.
   [`TaskFolders`](../../apps/server/src/workspace/TaskFolders.ts) is the only place they run and
   checks the approval, managed policy, and who asked at every run. Recording an approval is a
-  client RPC only: `t3code/no-layout-command-approval-writes` keeps the write side out of every
+  client RPC only: `oldleecode/no-layout-command-approval-writes` keeps the write side out of every
   other module, MCP tools included. For an agent's own worktree request, a thread below Full access
   gets neither these commands nor the project's setup script, approved or not. The asking thread's
   modes are read when each is about to run, a thread recorded above the administrator's

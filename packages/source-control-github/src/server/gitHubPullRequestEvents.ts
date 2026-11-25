@@ -144,7 +144,7 @@ export const make = Effect.gen(function* () {
                 HttpClientRequest.setHeaders({
                   accept: "text/event-stream",
                   "x-github-api-version": "2022-11-28",
-                  "user-agent": "t3code",
+                  "user-agent": "oldleecode",
                   authorization: `Bearer ${Redacted.value(held.token)}`,
                 }),
               ),

@@ -20,7 +20,7 @@ describe("ThreadIssueService", () => {
           key: {
             tracker: IssueTrackerKind.make("github"),
             host: "github.com",
-            scope: "t3tools/t3code",
+            scope: "oldleeo/oldlee-code",
             key: "7",
           },
         })

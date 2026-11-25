@@ -12,7 +12,7 @@ import * as SqlSchema from "effect/sql/SqlSchema";
  * Which of a project's `worktreeLayout` commands a person approved, by the hash of the exact
  * text. This side only reads. Recording an approval is `LayoutCommandApprovalWrites`, which only
  * the client RPC that a person's session calls may import
- * (t3code/no-layout-command-approval-writes).
+ * (oldleecode/no-layout-command-approval-writes).
  */
 export class LayoutCommandApprovals extends Context.Service<
   LayoutCommandApprovals,

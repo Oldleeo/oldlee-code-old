@@ -37,7 +37,7 @@ class LocalTracer extends Context.Reference("@t3tools/shared/relayTracing/LocalT
   defaultValue: () => Option.none<Tracer.Tracer>(),
 }) {}
 
-/** Export only T3 Connect spans; wrap local work with {@link withLocalTracing}. */
+/** Export only Oldlee Connect spans; wrap local work with {@link withLocalTracing}. */
 export const withRelayClientTracing = <A, E, R>(
   effect: Effect.Effect<A, E, R>,
 ): Effect.Effect<A, E, R> =>
@@ -182,11 +182,11 @@ export function layer(
       serviceName: resource.serviceName,
       serviceVersion: resource.serviceVersion,
       attributes: {
-        "service.namespace": "t3code",
+        "service.namespace": "oldleecode",
         "service.instance.id": resource.serviceInstanceId,
         "service.runtime": resource.runtime,
-        "t3code.component": resource.component ?? "relay-client",
-        "t3code.client.surface": resource.client,
+        "oldleecode.component": resource.component ?? "relay-client",
+        "oldleecode.client.surface": resource.client,
         ...resource.attributes,
       },
     },

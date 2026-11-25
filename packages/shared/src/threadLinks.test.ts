@@ -78,7 +78,7 @@ describe("thread links", () => {
   });
 
   it("rejects other links and an empty id", () => {
-    expect(parseThreadLinkHref("https://t3.codes")).toBeNull();
+    expect(parseThreadLinkHref("https://old.lat/code")).toBeNull();
     expect(parseThreadLinkHref("t3-thread://v1/")).toBeNull();
     expect(parseThreadLinkHref("t3-thread://v1/ ")).toBeNull();
     expect(parseThreadLinkHref("t3-thread://v2/env-1")).toBeNull();
@@ -219,7 +219,7 @@ describe("hosted thread links", () => {
     const link = hostedThreadLink(thread);
     expect(link).toBe("https://app.t3.codes/threads/env%2E1/thread%3Adelegated%2Fmcp%253A1%2E");
     expect(parseThreadLinkHref(link)).toEqual(thread);
-    expect(hostedThreadLink(thread, "https://preview.t3.codes/")).toMatch(
+    expect(hostedThreadLink(thread, "https://preview.example.test/")).toMatch(
       /^https:\/\/preview\.t3\.codes\/threads\//,
     );
   });

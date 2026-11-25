@@ -79,7 +79,7 @@ describe("T3ChatAccounts", () => {
     Effect.gen(function* () {
       const accounts = yield* T3ChatAccounts.T3ChatAccounts;
       const url = new URL(yield* accounts.createLinkUrl({ userId: "user_1" }));
-      expect(`${url.origin}${url.pathname}`).toBe("https://chat.example.test/link/t3code");
+      expect(`${url.origin}${url.pathname}`).toBe("https://chat.example.test/link/oldleecode");
 
       const [payload = "", signature = ""] = (url.searchParams.get("token") ?? "").split(".");
       // Verify with Web Crypto, as T3 Chat does, rather than the signing library.
@@ -117,7 +117,7 @@ describe("T3ChatAccounts", () => {
       expect(link).toEqual({ email: "theo@t3.chat", plan: "premier" });
       expect(t3Chat.requests).toEqual([
         {
-          url: "https://chat.example.test/api/t3code/link",
+          url: "https://chat.example.test/api/oldleecode/link",
           authorization: `Bearer ${SECRET}`,
           body: { clerkUserId: "user_1" },
         },

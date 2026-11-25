@@ -229,7 +229,10 @@ describe("buildThreadActionItems", () => {
       icon: null,
       run: async () => undefined,
     });
-    const projects = [action("new-thread-in:t3code", "t3code"), action("new-thread-in:web", "web")];
+    const projects = [
+      action("new-thread-in:oldleecode", "oldleecode"),
+      action("new-thread-in:web", "web"),
+    ];
     const newThreadIn = {
       kind: "submenu" as const,
       value: "action:new-thread-in",
@@ -253,7 +256,7 @@ describe("buildThreadActionItems", () => {
         projectSearchItems: [],
         threadSearchItems: [
           ...buildThreadActionItems({
-            threads: [makeThread({ title: "Thread about t3code" })],
+            threads: [makeThread({ title: "Thread about oldleecode" })],
             projectByKey: new Map(),
             icon: null,
             runThread: async () => undefined,
@@ -261,12 +264,12 @@ describe("buildThreadActionItems", () => {
         ],
       }).map((group) => [group.label, group.items.map((item) => item.title)]);
 
-    expect(search("new thread in t3code", false)[0]).toEqual([
+    expect(search("new thread in oldleecode", false)[0]).toEqual([
       "Suggestions",
-      ["New thread in t3code"],
+      ["New thread in oldleecode"],
     ]);
     expect(search("new thread", false).map(([label]) => label)).not.toContain("Suggestions");
-    expect(search("t3", true)).toEqual([["Projects", ["t3code"]]]);
+    expect(search("t3", true)).toEqual([["Projects", ["oldleecode"]]]);
     expect(search("add project", true)).toEqual([["Actions", ["Add project"]]]);
   });
 
@@ -425,8 +428,8 @@ describe("buildThreadActionItems", () => {
             {
               kind: "action",
               value: "action:new-thread",
-              searchTerms: ["New thread in t3code"],
-              title: "New thread in t3code",
+              searchTerms: ["New thread in oldleecode"],
+              title: "New thread in oldleecode",
               icon: null,
               run: async () => undefined,
             },
@@ -560,15 +563,15 @@ describe("buildThreadActionItems", () => {
               value: "action:new-thread",
               searchTerms: ["new thread", "chat"],
               // Styled: not a string, so only `searchTitle` holds its words.
-              title: ["New thread in ", "t3code"],
-              searchTitle: "New thread in t3code",
+              title: ["New thread in ", "oldleecode"],
+              searchTitle: "New thread in oldleecode",
               icon: null,
               run: async () => undefined,
             },
           ],
         },
       ],
-      query: "> new t3code",
+      query: "> new oldleecode",
       isInSubmenu: false,
       projectSearchItems: [],
       threadSearchItems: [],
@@ -647,7 +650,7 @@ describe("buildThreadActionItems", () => {
     });
     const items = buildThreadActionItems({
       threads: [idThread, titleThread],
-      projectByKey: new Map([[`${LOCAL_ENVIRONMENT_ID}:${PROJECT_ID}`, { title: "T3 Code" }]]),
+      projectByKey: new Map([[`${LOCAL_ENVIRONMENT_ID}:${PROJECT_ID}`, { title: "Oldlee Code" }]]),
       icon: null,
       runThread: async (_thread) => undefined,
     });
@@ -827,8 +830,8 @@ describe("filterPinnedBrowseEntries", () => {
 it.each([
   "#10839",
   "10839",
-  "pingdotgg/t3code#10839",
-  "https://github.com/pingdotgg/t3code/pull/10839",
+  "oldleeo/oldlee-code#10839",
+  "https://github.com/oldleeo/oldlee-code/pull/10839",
 ])("finds linked threads from PR query %s", (query) => {
   const items = buildThreadActionItems({
     threads: [
@@ -837,9 +840,9 @@ it.each([
         pullRequests: [
           {
             host: "github.com",
-            repository: "pingdotgg/t3code",
+            repository: "oldleeo/oldlee-code",
             number: 10839,
-            url: "https://github.com/pingdotgg/t3code/pull/10839",
+            url: "https://github.com/oldleeo/oldlee-code/pull/10839",
             source: "manual",
             linkedAt: "2026-09-08T00:00:00Z",
             snapshot: null,

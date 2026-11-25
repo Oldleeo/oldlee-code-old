@@ -122,33 +122,33 @@ describe("home project scopes", () => {
     const localEnvironmentId = EnvironmentId.make("environment-local");
     const remoteEnvironmentId = EnvironmentId.make("environment-remote");
     const repositoryIdentity = {
-      canonicalKey: "github.com/pingdotgg/t3code",
+      canonicalKey: "github.com/oldleeo/oldlee-code",
       locator: {
         source: "git-remote" as const,
         remoteName: "origin",
-        remoteUrl: "git@github.com:pingdotgg/t3code.git",
+        remoteUrl: "git@github.com:oldleeo/oldlee-code.git",
       },
     };
     const projects = [
       makeProject({
         environmentId: localEnvironmentId,
         id: ProjectId.make("project-local"),
-        title: "t3code",
+        title: "oldleecode",
         repositoryIdentity,
       }),
       makeProject({
         environmentId: remoteEnvironmentId,
         id: ProjectId.make("project-remote-with-identity"),
-        title: "t3code",
-        workspaceRoot: "/remote/t3code",
+        title: "oldleecode",
+        workspaceRoot: "/remote/oldleecode",
         repositoryIdentity,
         updatedAt: "2026-06-01T00:00:00.000Z",
       }),
       makeProject({
         environmentId: remoteEnvironmentId,
         id: ProjectId.make("project-remote-fresh"),
-        title: "t3code",
-        workspaceRoot: "/remote/t3code/",
+        title: "oldleecode",
+        workspaceRoot: "/remote/oldleecode/",
         updatedAt: "2026-06-02T00:00:00.000Z",
       }),
     ];

@@ -292,7 +292,7 @@ it.effect("rechecks a cached local executable when the shared manifest policy ch
       compatibility: [
         {
           driver: "codex",
-          t3CodeRange: ">=0.0.42",
+          oldleeCodeRange: ">=0.0.42",
           ranges: [
             { range: ">=0.156.1", status: "supported" },
             { range: "<0.156.1", status: "broken" },
@@ -549,7 +549,7 @@ it.effect.each(["cached update", "reverify"] as const)(
           compatibility: [
             {
               driver: "codex",
-              t3CodeRange: ">=0.0.0",
+              oldleeCodeRange: ">=0.0.0",
               ranges: [{ range: ">=0.156.0", status: "supported" }],
             },
           ],
@@ -745,7 +745,7 @@ it.effect("does not install a cached update the manifest has since withdrawn", (
       compatibility: [
         {
           driver: "codex",
-          t3CodeRange: ">=0.0.42",
+          oldleeCodeRange: ">=0.0.42",
           ranges: [
             { range: ">=0.160.0", status: "unsupported" },
             { range: ">=0.156.0 <0.160.0", status: "supported" },
@@ -789,7 +789,7 @@ it.effect("returns a managed install the manifest withdraws to the pinned releas
       compatibility: [
         {
           driver: "codex",
-          t3CodeRange: ">=0.0.42",
+          oldleeCodeRange: ">=0.0.42",
           ranges: [
             { range: ">=0.160.0", status: "unsupported" },
             { range: ">=0.156.0 <0.160.0", status: "supported" },
@@ -834,7 +834,7 @@ it.effect.each(["update", "reinstall"] as const)(
                   compatibility: [
                     {
                       driver: "codex",
-                      t3CodeRange: ">=0.0.42",
+                      oldleeCodeRange: ">=0.0.42",
                       ranges: [
                         { range: ">=0.160.0", status: "unsupported" },
                         { range: ">=0.156.0 <0.160.0", status: "supported" },

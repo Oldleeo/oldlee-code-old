@@ -287,7 +287,7 @@ const createManager = (
   Effect.flatMap(Effect.service(FileSystem.FileSystem), (fs) =>
     Effect.gen(function* () {
       const { join } = yield* Path.Path;
-      const baseDir = yield* fs.makeTempDirectoryScoped({ prefix: "t3code-terminal-" });
+      const baseDir = yield* fs.makeTempDirectoryScoped({ prefix: "oldleecode-terminal-" });
       const logsDir = join(baseDir, "userdata", "logs", "terminals");
       const ptyAdapter = options.ptyAdapter ?? new FakePtyAdapter();
 
@@ -2337,7 +2337,7 @@ it.layer(
     Effect.gen(function* () {
       const fs = yield* FileSystem.FileSystem;
       const { join } = yield* Path.Path;
-      const root = yield* fs.makeTempDirectoryScoped({ prefix: "t3code-shell-path-" });
+      const root = yield* fs.makeTempDirectoryScoped({ prefix: "oldleecode-shell-path-" });
       const bin = join(root, "Jane -Doe Smith", ".local", "bin");
       yield* fs.makeDirectory(bin, { recursive: true });
       yield* fs.writeFileString(join(bin, "fish"), "");
@@ -2760,7 +2760,7 @@ it.layer(
       runtimeEnv: { Term_Program: "", term_program_version: "custom-version" },
     },
   ] as const)(
-    "identifies as T3 Code unless the terminal env overrides it on $platform",
+    "identifies as Oldlee Code unless the terminal env overrides it on $platform",
     ({ platform, parentEnv, runtimeEnv }) =>
       Effect.gen(function* () {
         const originalEnv = { ...parentEnv };
@@ -2774,7 +2774,7 @@ it.layer(
 
         expect(ptyAdapter.spawnInputs).toHaveLength(2);
         for (const [index, expected] of [
-          { TERM_PROGRAM: "t3code", TERM_PROGRAM_VERSION: packageJson.version },
+          { TERM_PROGRAM: "oldleecode", TERM_PROGRAM_VERSION: packageJson.version },
           { TERM_PROGRAM: "", TERM_PROGRAM_VERSION: "custom-version" },
         ].entries()) {
           const spawnEnv = ptyAdapter.spawnInputs[index]!.env;
@@ -2835,12 +2835,12 @@ it.layer(
 
   it.effect("strips AppImage runtime env from terminal sessions", () =>
     Effect.gen(function* () {
-      const appDir = "/tmp/.mount_T3Codeabc123";
+      const appDir = "/tmp/.mount_OldleeCodeabc123";
       const { manager, ptyAdapter } = yield* createManager(5, {
         env: {
-          APPIMAGE: "/home/user/T3-Code.AppImage",
+          APPIMAGE: "/home/user/Oldlee-Code.AppImage",
           APPDIR: appDir,
-          ARGV0: "/home/user/T3-Code.AppImage",
+          ARGV0: "/home/user/Oldlee-Code.AppImage",
           OWD: "/home/user/project",
           PATH: `${appDir}/usr/bin:${appDir}:/usr/local/bin:/usr/bin:/bin`,
           LD_LIBRARY_PATH: `${appDir}/usr/lib:/home/user/.local/lib`,

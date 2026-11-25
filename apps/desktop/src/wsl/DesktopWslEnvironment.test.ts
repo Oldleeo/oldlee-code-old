@@ -90,7 +90,7 @@ const readField = (stdout: string, field: string) => {
   return line.slice(field.length + 1).trim();
 };
 
-const SERVER_ENTRY_SOURCE = '#!/bin/sh\necho "t3code wsl runtime test server 0.0.0"\n';
+const SERVER_ENTRY_SOURCE = '#!/bin/sh\necho "oldleecode wsl runtime test server 0.0.0"\n';
 
 describe("WSL runtime cache", () => {
   it.each([
@@ -278,7 +278,7 @@ describe.skipIf(posixShellRunner === null)("WSL runtime install script (executed
         "set -eu",
         `printf '%s' ${sh(brokenEntry)} > ${sh(fixture.serverEntry)}`,
         `chmod +x ${sh(fixture.serverEntry)}`,
-        `sha256sum ${sh(fixture.serverEntry)} | cut -d ' ' -f 1 > ${sh(`${fixture.runtimeRoot}/.t3code-wsl-runtime-ready`)}`,
+        `sha256sum ${sh(fixture.serverEntry)} | cut -d ' ' -f 1 > ${sh(`${fixture.runtimeRoot}/.oldleecode-wsl-runtime-ready`)}`,
       ].join("\n"),
     );
     expect(corrupt.status, corrupt.stderr).toBe(0);
@@ -390,8 +390,8 @@ describe.skipIf(posixShellRunner === null)("WSL runtime install script (executed
         "set -eu",
         `runtime_parent=${sh(fixture.runtimeParent)}`,
         'mkdir -p "$runtime_parent/sha256-current" "$runtime_parent/sha256-previous"',
-        'printf ready > "$runtime_parent/sha256-current/.t3code-wsl-runtime-ready"',
-        'printf ready > "$runtime_parent/sha256-previous/.t3code-wsl-runtime-ready"',
+        'printf ready > "$runtime_parent/sha256-current/.oldleecode-wsl-runtime-ready"',
+        'printf ready > "$runtime_parent/sha256-previous/.oldleecode-wsl-runtime-ready"',
         `touch -d "10 minutes ago" ${sh(fixture.runtimeRoot)}`,
         'touch -d "1 minute ago" "$runtime_parent/sha256-previous"',
         `cat > ${sh(`${fixture.work}/select.sh`)} <<'T3CODE_SELECT_SCRIPT'`,
@@ -494,7 +494,7 @@ describe.skipIf(posixShellRunner === null)("WSL runtime install script (executed
         expect(prepared).toEqual({ ok: true, linuxAppRoot: fixture.runtimeRoot });
         const version = runShell(`${sh(fixture.serverEntry)} --version`);
         expect(version.status, version.stderr).toBe(0);
-        expect(version.stdout).toBe("t3code wsl runtime test server 0.0.0\n");
+        expect(version.stdout).toBe("oldleecode wsl runtime test server 0.0.0\n");
       }).pipe(Effect.provide(layerWslEnvironment(`${fixture.work}/home`)));
     });
   });
@@ -507,7 +507,7 @@ describe.skipIf(posixShellRunner === null)("WSL runtime install script (executed
         'home="$work/home"',
         'runtime_parent="$home/.t3/wsl-runtime"',
         'mkdir -p "$runtime_parent"',
-        'make_ready() { mkdir -p "$runtime_parent/$1"; printf ready > "$runtime_parent/$1/.t3code-wsl-runtime-ready"; }',
+        'make_ready() { mkdir -p "$runtime_parent/$1"; printf ready > "$runtime_parent/$1/.oldleecode-wsl-runtime-ready"; }',
         "make_ready sha256-current",
         "make_ready sha256-previous",
         "make_ready sha256-active",

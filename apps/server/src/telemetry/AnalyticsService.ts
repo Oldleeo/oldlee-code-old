@@ -68,12 +68,10 @@ function retryDelayMs(failures: number, random: number): number {
 }
 
 const TelemetryEnvConfig = Config.all({
-  posthogKey: Config.String("T3CODE_POSTHOG_KEY").pipe(
-    Config.withDefault("phc_XOWci4oZP4VvLiEyrFqkFjP4CZn55mjYYBMREK5Wd6m"),
-  ),
-  posthogHost: Config.String("T3CODE_POSTHOG_HOST").pipe(
-    Config.withDefault("https://ingest.t3.codes"),
-  ),
+  // This fork does not ship T3's analytics key or ingest host. Events send only
+  // when both are set, so a default install does not report usage upstream.
+  posthogKey: Config.String("T3CODE_POSTHOG_KEY").pipe(Config.withDefault("")),
+  posthogHost: Config.String("T3CODE_POSTHOG_HOST").pipe(Config.withDefault("")),
   enabled: Config.Boolean("T3CODE_TELEMETRY_ENABLED").pipe(Config.option),
   flushBatchSize: Config.Number("T3CODE_TELEMETRY_FLUSH_BATCH_SIZE").pipe(Config.withDefault(20)),
   maxBufferedEvents: Config.Number("T3CODE_TELEMETRY_MAX_BUFFERED_EVENTS").pipe(
@@ -128,7 +126,10 @@ export const make = Effect.gen(function* () {
   const hostEnvironment = yield* HostProcess.Environment;
   const awaitingShellConsent = hostEnvironment.T3CODE_DESKTOP_SHELL_DISCOVERY_PENDING === "1";
   const enabledByDefault = !isCiEnvironment(hostEnvironment);
-  const enabledAtStartup = Option.getOrElse(telemetryConfig.enabled, () => enabledByDefault);
+  const hasAnalyticsDestination =
+    telemetryConfig.posthogKey.trim().length > 0 && telemetryConfig.posthogHost.trim().length > 0;
+  const enabledAtStartup =
+    hasAnalyticsDestination && Option.getOrElse(telemetryConfig.enabled, () => enabledByDefault);
   // A managed policy can switch analytics off over the environment, never on.
   const policyAllows =
     ManagedPolicy.deniedBy(yield* ManagedPolicy.ManagedPolicy, "telemetry") === undefined;
@@ -221,7 +222,7 @@ export const make = Effect.gen(function* () {
           ? {
               ...event.properties,
               $process_person_profile: false,
-              t3CodeVersion: packageJson.version,
+              oldleeCodeVersion: packageJson.version,
               telemetryChannel: ServerConfig.telemetryChannel,
             }
           : {
@@ -231,7 +232,7 @@ export const make = Effect.gen(function* () {
               platform: hostPlatform,
               wsl: Option.getOrUndefined(telemetryConfig.wslDistroName),
               arch: hostArchitecture,
-              t3CodeVersion: packageJson.version,
+              oldleeCodeVersion: packageJson.version,
               telemetryChannel: ServerConfig.telemetryChannel,
               clientType,
               serverOs: serverOsFromNodePlatform(hostPlatform),

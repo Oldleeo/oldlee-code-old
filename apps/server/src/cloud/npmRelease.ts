@@ -18,8 +18,11 @@ import { FetchHttpClient, HttpClient } from "effect/http";
 import * as ProcessRunner from "../processRunner.ts";
 
 const Version = Schema.String.check(Schema.isPattern(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/));
-const Manifest = Schema.Struct({ version: Version, t3code: Schema.optionalKey(Schema.Unknown) });
-// npm prints a bare version string when the release has no `t3code` field.
+const Manifest = Schema.Struct({
+  version: Version,
+  oldleecode: Schema.optionalKey(Schema.Unknown),
+});
+// npm prints a bare version string when the release has no `oldleecode` field.
 const decodeManifest = Schema.decodeUnknownOption(
   Schema.fromJsonString(Schema.Union([Manifest, Schema.Tuple([Manifest]), Version])),
 );
@@ -87,7 +90,7 @@ export const make = Effect.fn("NpmRelease.make")(function* () {
           runner.run({
             command: npmPath,
             // Named fields keep the output small; the full package document grows with every release.
-            args: ["view", "--global", "--json", `t3@${spec}`, "version", "t3code"],
+            args: ["view", "--global", "--json", `t3@${spec}`, "version", "oldleecode"],
             timeout: Duration.seconds(15),
             maxOutputBytes: 256 * 1024,
           }),
