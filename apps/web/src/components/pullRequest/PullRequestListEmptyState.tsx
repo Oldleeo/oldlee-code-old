@@ -6,6 +6,7 @@ import { PlusIcon, SearchIcon } from "lucide-react";
 import { openCommandPalette } from "../../commandPaletteBus";
 import { Button } from "../ui/button";
 import { PullRequestListGhost } from "./PullRequestGhosts";
+import { Mascot } from "../Mascot";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "../ui/empty";
 
 function BranchMark({ joined }: { joined: boolean }) {
@@ -76,7 +77,7 @@ export function PullRequestListEmptyState({
   if (!hasProjects) {
     return (
       <Empty>
-        <BranchMark joined={false} />
+        <Mascot pose="chair" className="h-36 w-auto" />
         <EmptyHeader>
           <EmptyTitle>
             <T>No projects in this workspace</T>
@@ -107,7 +108,7 @@ export function PullRequestListEmptyState({
   if (query.length > 0) {
     return (
       <Empty>
-        <BranchMark joined={false} />
+        <Mascot pose="plain" className="h-20 w-auto" />
         <EmptyHeader>
           <EmptyTitle>
             <T>
