@@ -432,20 +432,129 @@ function legacyThemeMode(theme: ThemePreference): ThemeAppearance | null {
   return theme === LEGACY_T3_CHAT_DARK_THEME_ID ? "dark" : null;
 }
 
+// The desktop and web default. Paper, ink, and the pink marker from old.lat/code.
+// Mobile keeps the shared T3 Code palette.
+const NOTEBOOK_LIGHT_THEME_COLORS: ThemeColors = {
+  ...T3_CODE_LIGHT_THEME_COLORS,
+  canvas: "#fbf8f1",
+  chrome: "#fbf8f1",
+  toolbar: "#fbf8f1",
+  toolbarForeground: "#121212",
+  toolbarBorder: "#121212",
+  toolbarControl: "#fffefb",
+  toolbarControlForeground: "#121212",
+  toolbarControlHover: "#ffe6eb",
+  surface: "#fffefb",
+  surfaceRaised: "#f7f3ea",
+  surfaceOverlay: "#fffefb",
+  text: "#121212",
+  textMuted: "#4a4743",
+  border: "#e4d9c8",
+  input: "#cfc3b0",
+  focus: "#ff5d7e",
+  accent: "#ff5d7e",
+  accentForeground: "#121212",
+  secondary: "#ffe6eb",
+  secondaryForeground: "#121212",
+  muted: "#f3eee4",
+  mutedForeground: "#4a4743",
+  placeholder: "#6b6560",
+  secondaryLabel: "#4a4743",
+  iconMuted: "#4a4743",
+  update: "#ff5d7e",
+  updateForeground: "#9d2340",
+  updateSurface: "#ffe6eb",
+  accentSurface: "#ffe6eb",
+  accentSurfaceForeground: "#121212",
+  messageSurface: "#fff0f3",
+  messageForeground: "#121212",
+  messageAction: "#ff5d7e",
+  messageActionForeground: "#121212",
+  messageActionHover: "#e14368",
+  codeBackground: "#fffefb",
+  codeForeground: "#121212",
+  sidebar: "#f7f3ea",
+  sidebarForeground: "#121212",
+  sidebarMutedForeground: "#4a4743",
+  sidebarControlSurface: "#fffefb",
+  sidebarRowHover: "#ffe6eb",
+  sidebarRowActive: "#ffc3cf",
+  sidebarRowSelected: "#fffefb",
+  sidebarBorder: "#121212",
+  terminalBackground: "#fffefb",
+  terminalForeground: "#121212",
+  terminalCursor: "#121212",
+  terminalSelection: "#ffc3cf",
+  terminalScrollbar: "#d9d0c3",
+  terminalScrollbarHover: "#b7ad9e",
+};
+
+const NOTEBOOK_DARK_THEME_COLORS: ThemeColors = {
+  ...T3_CODE_DARK_THEME_COLORS,
+  canvas: "#121212",
+  chrome: "#121212",
+  toolbar: "#121212",
+  toolbarForeground: "#fbf8f1",
+  toolbarBorder: "#3a342c",
+  toolbarControl: "#1c1a17",
+  toolbarControlForeground: "#fbf8f1",
+  toolbarControlHover: "#2a2422",
+  surface: "#1c1a17",
+  surfaceRaised: "#24211c",
+  surfaceOverlay: "#1c1a17",
+  text: "#fbf8f1",
+  textMuted: "#c8c0b4",
+  border: "#3a342c",
+  input: "#4a433a",
+  focus: "#ff5d7e",
+  accent: "#ff5d7e",
+  accentForeground: "#121212",
+  secondary: "#2a2226",
+  secondaryForeground: "#fbf8f1",
+  muted: "#1c1a17",
+  mutedForeground: "#c8c0b4",
+  placeholder: "#a39a8e",
+  secondaryLabel: "#c8c0b4",
+  iconMuted: "#c8c0b4",
+  update: "#ff5d7e",
+  updateForeground: "#ffc3cf",
+  updateSurface: "#3a1c28",
+  accentSurface: "#2a2226",
+  accentSurfaceForeground: "#fbf8f1",
+  messageSurface: "#2a2226",
+  messageForeground: "#fbf8f1",
+  messageAction: "#ff5d7e",
+  messageActionForeground: "#121212",
+  messageActionHover: "#ff3d66",
+  codeBackground: "#0e0e0e",
+  codeForeground: "#f4f1ea",
+  sidebar: "#0e0e0e",
+  sidebarForeground: "#fbf8f1",
+  sidebarMutedForeground: "#c8c0b4",
+  sidebarControlSurface: "#1c1a17",
+  sidebarRowHover: "#2a2226",
+  sidebarRowActive: "#3a2830",
+  sidebarRowSelected: "#1c1a17",
+  sidebarBorder: "#3a342c",
+  terminalBackground: "#0c0c0c",
+  terminalForeground: "#f4f1ea",
+  terminalCursor: "#ffc3cf",
+  terminalSelection: "#5a3040",
+  terminalScrollbar: "#3a342c",
+  terminalScrollbarHover: "#5a5348",
+};
+
 export function getStandardThemeColors(appearance: ThemeAppearance): ThemeColors {
   if (appearance === "dark") {
-    return (standardDarkThemeColors ??= decodeThemeColors({
-      ...T3_CODE_DARK_THEME_COLORS,
-      canvas: "#000000",
-    }));
+    return (standardDarkThemeColors ??= decodeThemeColors(NOTEBOOK_DARK_THEME_COLORS));
   }
-  return (standardLightThemeColors ??= decodeThemeColors(T3_CODE_LIGHT_THEME_COLORS));
+  return (standardLightThemeColors ??= decodeThemeColors(NOTEBOOK_LIGHT_THEME_COLORS));
 }
 
-// index.css paints the light bubble a step darker than the shared palette mobile uses.
+// index.css paints these same surfaces; kept so a future CSS drift stays explicit.
 const STANDARD_WEB_PAINTED_COLORS: Record<ThemeAppearance, Partial<ThemeColors>> = {
-  light: { messageSurface: "#ebebed" },
-  dark: { canvas: "#000000", messageSurface: "#1e1e1e" },
+  light: {},
+  dark: {},
 };
 
 /** The standard theme as index.css paints it, for solves that measure the page. */

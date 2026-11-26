@@ -40,6 +40,7 @@ import {
 import { msg, T, useGT, useLocale, useMessages, Var } from "gt-react";
 import { useEffect, useEffectEvent, useRef, useState, type ReactNode } from "react";
 
+import { Mascot } from "../Mascot";
 import { TYPOGRAPHY_ADVANCED_STORAGE_KEY } from "../../appearanceFonts";
 import { MOBILE_APP_URL } from "../../branding";
 import { isElectron } from "../../env";
@@ -279,18 +280,23 @@ export function WelcomePage({
         {isElectron ? <WorkspacePageHeader electron /> : null}
         <div className="min-h-0 flex-1 overflow-y-auto scrollbar-gutter-both">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col px-6 pt-12 pb-8 sm:pt-20">
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-              <T>Welcome to Oldlee Code</T>
-            </h1>
-            <p className="mt-1.5 text-sm text-muted-foreground">
-              <T>
-                Setting up{" "}
-                <span className="text-foreground">
-                  <Var>{label}</Var>
-                </span>
-                .
-              </T>
-            </p>
+            <div className="flex items-end justify-between gap-6">
+              <div className="min-w-0">
+                <h1 className="notebook-mark text-2xl font-semibold tracking-tight text-foreground">
+                  <T>Welcome to Oldlee Code</T>
+                </h1>
+                <p className="mt-1.5 text-sm text-muted-foreground">
+                  <T>
+                    Setting up{" "}
+                    <span className="text-foreground">
+                      <Var>{label}</Var>
+                    </span>
+                    .
+                  </T>
+                </p>
+              </div>
+              <Mascot pose="wave" className="hidden h-36 w-auto shrink-0 sm:block" />
+            </div>
             <div className="mt-10 border-t border-border/60">
               <AgentsSection
                 environmentId={environmentId}

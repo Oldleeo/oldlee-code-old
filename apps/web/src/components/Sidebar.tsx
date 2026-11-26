@@ -258,6 +258,7 @@ import {
   useComboboxFilter,
 } from "./ui/combobox";
 import { SidebarContent, SidebarGroup, useSidebar } from "./ui/sidebar";
+import { Mascot } from "./Mascot";
 import { SidebarChromeFooter, SidebarChromeHeader } from "./sidebar/SidebarChrome";
 import { SidebarHeaderIconButton, SidebarThreadHeader } from "./sidebar/SidebarThreadHeader";
 import { TooltipProvider, TooltipScrollDismissArea } from "./ui/tooltip";
@@ -3415,8 +3416,11 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
             ) : (
               <p
                 role="status"
-                className="px-2 py-6 text-center text-xs text-sidebar-muted-foreground"
+                className="flex flex-col items-center gap-2 px-2 py-6 text-center text-xs text-sidebar-muted-foreground"
               >
+                {threadSearch.isPending || threadSearch.failed ? null : (
+                  <Mascot pose="plain" className="h-16 w-auto" />
+                )}
                 {threadSearch.isPending
                   ? gt("Searching thread messages…")
                   : threadSearch.failed
@@ -3436,6 +3440,10 @@ export default function Sidebar({ routeReveal }: { routeReveal: SidebarRouteReve
             0 &&
           (settledCount === 0 || scopedProjectGroups.length > 0) ? (
             <div className="flex flex-col items-center gap-2 px-2 py-6 text-center text-xs text-muted-foreground/60">
+              <Mascot
+                pose={projects.length === 0 ? "chair" : "laptop"}
+                className="mb-1 h-24 w-auto"
+              />
               {projects.length === 0 ? (
                 <>
                   <span>

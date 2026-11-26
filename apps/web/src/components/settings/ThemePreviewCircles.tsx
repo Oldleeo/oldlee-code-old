@@ -41,18 +41,24 @@ const STANDARD_THEME_PREVIEW_COLORS: Record<
   Readonly<Record<ThemePreviewRole, string>>
 > = {
   light: {
-    sidebar: "#fafafa",
-    surface: "#ffffff",
-    accentSurface: "#f4f4f5",
-    messageSurface: "#e4e4e7",
     ...SHARED_STANDARD_THEME_PREVIEW_COLORS.light,
+    canvas: "#fbf8f1",
+    sidebar: "#f7f3ea",
+    surface: "#fffefb",
+    accent: "#ff5d7e",
+    accentSurface: "#ffe6eb",
+    messageSurface: "#fff0f3",
+    messageAction: "#ff5d7e",
   },
   dark: {
-    sidebar: "#0f0f10",
-    surface: "#121212",
-    accentSurface: "#27272a",
-    messageSurface: "#27272a",
     ...SHARED_STANDARD_THEME_PREVIEW_COLORS.dark,
+    canvas: "#121212",
+    sidebar: "#0e0e0e",
+    surface: "#1c1a17",
+    accent: "#ff5d7e",
+    accentSurface: "#2a2226",
+    messageSurface: "#2a2226",
+    messageAction: "#ff5d7e",
   },
 };
 

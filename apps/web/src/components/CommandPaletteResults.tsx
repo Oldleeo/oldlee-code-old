@@ -25,6 +25,7 @@ import {
   CommandShortcut,
 } from "./ui/command";
 import { getVirtualizedScrollFadeClassName } from "./ui/scroll-area";
+import { Mascot } from "./Mascot";
 import { ProjectPinButton } from "./ProjectPinButton";
 import { SearchMatchHintLine, ThreadSearchMatchExcerpt } from "./ThreadSearchMatch";
 
@@ -39,7 +40,8 @@ interface CommandPaletteResultsProps {
 
 function CommandPaletteEmptyState(props: { emptyStateMessage?: string; isActionsOnly: boolean }) {
   return (
-    <div className="py-10 text-center text-sm text-muted-foreground">
+    <div className="flex flex-col items-center gap-3 py-10 text-center text-sm text-muted-foreground">
+      {props.emptyStateMessage ? null : <Mascot pose="smile" className="h-16 w-auto" />}
       {props.emptyStateMessage ??
         (props.isActionsOnly ? (
           <T>No matching actions.</T>

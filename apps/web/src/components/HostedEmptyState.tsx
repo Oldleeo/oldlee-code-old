@@ -6,6 +6,7 @@ import { CheckIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
 
 import { APP_DISPLAY_NAME, DESKTOP_DOWNLOAD_URL } from "~/branding";
+import { Mascot } from "./Mascot";
 import { hasCloudPublicConfig } from "~/cloud/publicConfig";
 import { isElectron } from "../env";
 import { isLocalEnvironmentDisabled } from "../localEnvironment";
@@ -37,6 +38,7 @@ export function HostedEmptyState() {
 
         <Empty className="flex-1">
           <EmptyHeader>
+            <Mascot pose="stand" className="mb-2 h-40 w-auto" />
             <EmptyTitle>
               {localEnvironmentOff ? <T>This computer is off</T> : <T>No computer connected</T>}
             </EmptyTitle>
