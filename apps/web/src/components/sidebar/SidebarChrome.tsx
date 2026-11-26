@@ -185,19 +185,18 @@ function SidebarBrand({ onBackdrop }: { onBackdrop: boolean }) {
 
 function SidebarBrandMark({ onBackdrop }: { onBackdrop: boolean }) {
   return (
-    <span className="inline-flex min-w-0 items-center gap-1.5 text-sm font-medium tracking-tight">
+    <span
+      className={cn(
+        "inline-flex min-w-0 items-center gap-2 text-sm font-semibold tracking-tight text-sidebar-foreground",
+        onBackdrop && "rounded-md bg-sidebar px-1.5 py-0.5",
+      )}
+    >
       <Mascot
         pose="plain"
-        className="size-7 rounded-full border-2 border-current bg-white object-cover object-[center_12%]"
+        className="size-8 shrink-0 rounded-full bg-white object-cover object-[center_16%]"
       />
-      <span
-        className={cn(
-          "truncate [text-box:trim-both_cap_alphabetic] supports-[text-box:trim-both_cap_alphabetic]:py-1",
-          onBackdrop ? "text-white/70" : "text-muted-foreground",
-        )}
-      >
-        {/* oxlint-disable-next-line oldleecode/no-untranslated-copy -- product wordmark */}
-        {"Code"}
+      <span className="truncate [text-box:trim-both_cap_alphabetic] supports-[text-box:trim-both_cap_alphabetic]:py-1">
+        {"Oldlee Code"}
       </span>
     </span>
   );

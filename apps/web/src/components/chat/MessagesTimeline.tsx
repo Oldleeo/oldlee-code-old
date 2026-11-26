@@ -1466,10 +1466,10 @@ const ConversationTimeline = memo(function ConversationTimeline({
       <>
         {activityAnnouncer}
         <div
-          className="flex h-full flex-col items-center justify-center gap-3 ps-(--chat-lane-inset-start) pe-(--chat-lane-inset-end)"
+          className="flex h-full flex-col items-center justify-center gap-8 ps-(--chat-lane-inset-start) pe-(--chat-lane-inset-end)"
           style={{ paddingBottom: emptyPlaceholderInset }}
         >
-          <Mascot pose="smile" className="h-24 w-auto" />
+          <Mascot pose="laptop" className="h-56 w-auto max-w-[min(100%,18rem)]" />
           <p className="text-sm text-muted-foreground">
             <T>Send a message to start the conversation.</T>
           </p>

@@ -365,7 +365,10 @@ export function DraftHeroHeadline({
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col items-center">
       {hasResolvedProject && !isScratchDraft ? null : (
-        <Mascot pose={isScratchDraft ? "laptop" : "chair"} className="mb-4 h-36 w-auto" />
+        <Mascot
+          pose={isScratchDraft ? "laptop" : "chair"}
+          className="mb-8 h-56 w-auto max-w-[min(100%,18rem)]"
+        />
       )}
       {hasResolvedProject && !isScratchDraft ? (
         <DraftHeroProjectHeading projectName={activeProjectTitle ?? gt("Choose a project")}>

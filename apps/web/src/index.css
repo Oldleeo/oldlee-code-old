@@ -1148,7 +1148,7 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   --radius: 0.5rem;
   --notebook-paper: #fbf8f1;
   --notebook-ink: #121212;
-  --notebook-line: #121212;
+  --notebook-line: rgb(18 18 18 / 12%);
   --notebook-pink: #ff5d7e;
   --notebook-pink-light: #ffc3cf;
   --notebook-pink-wash: #ffe6eb;
@@ -1211,9 +1211,9 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   --sidebar-foreground: var(--foreground);
   --sidebar-muted-foreground: var(--muted-foreground);
   --sidebar-control-surface: #fffefb;
-  --sidebar-row-hover: var(--notebook-pink-wash);
-  --sidebar-row-active: var(--notebook-pink-light);
-  --sidebar-row-selected: #fffefb;
+  --sidebar-row-hover: #f3eee4;
+  --sidebar-row-active: var(--notebook-pink-wash);
+  --sidebar-row-selected: var(--notebook-pink-wash);
   --sidebar-border: var(--notebook-line);
   --sidebar-stage-fade: var(--sidebar);
   --code-background: #fffefb;
@@ -1225,7 +1225,7 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
 
   @variant dark {
     color-scheme: dark;
-    --notebook-line: #fbf8f1;
+    --notebook-line: rgb(251 248 241 / 14%);
     --background: #121212;
     --surface-raised: #24211c;
     --foreground: var(--notebook-paper);
@@ -1265,10 +1265,10 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
     --sidebar-foreground: var(--notebook-paper);
     --sidebar-muted-foreground: #c8c0b4;
     --sidebar-control-surface: #1c1a17;
-    --sidebar-row-hover: #2a2226;
-    --sidebar-row-active: #3a2830;
-    --sidebar-row-selected: #1c1a17;
-    --sidebar-border: #3a342c;
+    --sidebar-row-hover: rgb(251 248 241 / 6%);
+    --sidebar-row-active: rgb(255 93 126 / 16%);
+    --sidebar-row-selected: rgb(255 93 126 / 16%);
+    --sidebar-border: var(--notebook-line);
     --sidebar-stage-fade: #0e0e0e;
     --code-background: #0e0e0e;
     --code-foreground: #f4f1ea;
@@ -1277,7 +1277,7 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
     --terminal-cursor: var(--notebook-pink-light);
     --terminal-selection-background: rgb(255 93 126 / 35%);
     --toolbar-foreground: var(--notebook-paper);
-    --toolbar-border: #3a342c;
+    --toolbar-border: var(--notebook-line);
     --toolbar-control: #1c1a17;
     --toolbar-control-foreground: var(--notebook-paper);
     --toolbar-control-hover: #2a2422;
@@ -1300,9 +1300,9 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
   --sidebar-foreground: var(--notebook-ink);
   --sidebar-muted-foreground: #4a4743;
   --sidebar-control-surface: #fffefb;
-  --sidebar-row-hover: var(--notebook-pink-wash);
-  --sidebar-row-active: var(--notebook-pink-light);
-  --sidebar-row-selected: #fffefb;
+  --sidebar-row-hover: #f3eee4;
+  --sidebar-row-active: var(--notebook-pink-wash);
+  --sidebar-row-selected: var(--notebook-pink-wash);
   --sidebar-border: var(--notebook-line);
   --sidebar-stage-fade: var(--sidebar);
 
@@ -1321,10 +1321,10 @@ html[data-mobile-composer-route-transition="true"]::view-transition-old(t3-mobil
     --sidebar-foreground: var(--foreground);
     --sidebar-muted-foreground: var(--muted-foreground);
     --sidebar-control-surface: #1c1a17;
-    --sidebar-row-hover: #2a2226;
-    --sidebar-row-active: #3a2830;
-    --sidebar-row-selected: #1c1a17;
-    --sidebar-border: #3a342c;
+    --sidebar-row-hover: rgb(251 248 241 / 6%);
+    --sidebar-row-active: rgb(255 93 126 / 16%);
+    --sidebar-row-selected: rgb(255 93 126 / 16%);
+    --sidebar-border: var(--notebook-line);
     --sidebar-stage-fade: #0e0e0e;
     --secondary-label: #c8c0b4;
   }
@@ -2735,19 +2735,21 @@ code {
 }
 
 /* Notebook chrome for the default theme. Custom themes opt out by setting
-   data-theme-id. Drawn edges stay on chrome; code, diffs, and the terminal
-   keep flat surfaces. */
+   data-theme-id. A 2px offset sits only on the composer, dialogs, and filled
+   buttons. Structural edges stay hairlines. Code, diffs, and the terminal
+   stay flat. */
 html:not([data-theme-id]) .bg-background {
-  background-image: radial-gradient(rgb(18 18 18 / 7%) 1px, transparent 1.15px);
-  background-size: 18px 18px;
+  background-image: radial-gradient(rgb(18 18 18 / 4%) 0.75px, transparent 0.9px);
+  background-size: 24px 24px;
 }
 
 html.dark:not([data-theme-id]) .bg-background {
-  background-image: radial-gradient(rgb(251 248 241 / 6%) 1px, transparent 1.15px);
+  background-image: radial-gradient(rgb(251 248 241 / 3.5%) 0.75px, transparent 0.9px);
 }
 
 html:not([data-theme-id])
   :is(
+    [data-app-sidebar],
     [data-terminal-owner],
     [data-chat-composer-surface],
     [data-slot="composer-host"],
@@ -2766,105 +2768,62 @@ html:not([data-theme-id])
 }
 
 html:not([data-theme-id]) [data-app-sidebar] {
-  border-inline-end: 2px solid var(--notebook-ink);
-  background-image: radial-gradient(rgb(18 18 18 / 8%) 1px, transparent 1.15px);
-  background-size: 18px 18px;
-}
-
-html.dark:not([data-theme-id]) [data-app-sidebar] {
-  border-inline-end-color: #3a342c;
-  background-image: radial-gradient(rgb(251 248 241 / 7%) 1px, transparent 1.15px);
+  border-inline-end: 1px solid var(--notebook-line);
 }
 
 html:not([data-theme-id])
-  [data-slot="button"]:is(
+  [data-slot="button"][class~="bg-primary"]:is(
     [class~="h-8"],
     [class~="h-9"],
     [class~="h-10"],
     [class~="h-11"],
     [class~="min-h-8"],
     [class~="min-h-9"]
-  ):not([class~="border-transparent"]) {
-  border-color: var(--notebook-ink);
-  border-width: 1.5px;
-  border-radius: 11px 9px 12px 10px;
+  ) {
+  border-radius: 12px;
   box-shadow: 2px 2px 0 var(--notebook-ink);
 }
 
 html.dark:not([data-theme-id])
-  [data-slot="button"]:is(
+  [data-slot="button"][class~="bg-primary"]:is(
     [class~="h-8"],
     [class~="h-9"],
     [class~="h-10"],
     [class~="h-11"],
     [class~="min-h-8"],
     [class~="min-h-9"]
-  ):not([class~="border-transparent"]) {
-  border-color: var(--notebook-paper);
-  box-shadow: 2px 2px 0 var(--notebook-pink);
+  ) {
+  box-shadow: 2px 2px 0 rgb(251 248 241 / 28%);
 }
 
 html:not([data-theme-id]) [data-slot="dialog-popup"].dialog-glass {
-  border: 2px solid var(--notebook-ink);
-  border-radius: 18px 16px 20px 15px;
+  border: 1px solid var(--notebook-line);
+  border-radius: 16px;
   background: var(--card);
-  box-shadow: 6px 6px 0 var(--notebook-ink);
+  box-shadow: 2px 2px 0 var(--notebook-ink);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
 html.dark:not([data-theme-id]) [data-slot="dialog-popup"].dialog-glass {
-  border-color: var(--notebook-paper);
-  box-shadow: 6px 6px 0 var(--notebook-pink);
+  box-shadow: 2px 2px 0 rgb(251 248 241 / 28%);
 }
 
 html:not([data-theme-id])
   [data-slot="popover-popup"]:not([class~="border-0"]):not([class~="shadow-none"]) {
-  border: 1.5px solid var(--notebook-ink);
-  box-shadow: 3px 3px 0 var(--notebook-ink);
-}
-
-html.dark:not([data-theme-id])
-  [data-slot="popover-popup"]:not([class~="border-0"]):not([class~="shadow-none"]) {
-  border-color: var(--notebook-paper);
-  box-shadow: 3px 3px 0 var(--notebook-pink);
+  border: 1px solid var(--notebook-line);
+  box-shadow: none;
 }
 
 html:not([data-theme-id]) [data-slot="composer-shell"] {
-  --chat-composer-outline: var(--notebook-ink);
+  --chat-composer-outline: var(--notebook-line);
 }
 
 html:not([data-theme-id]) [data-slot="composer-host"] {
-  border-radius: 16px 14px 18px 15px;
-  box-shadow: 4px 4px 0 var(--notebook-ink);
-}
-
-html.dark:not([data-theme-id]) [data-slot="composer-shell"] {
-  --chat-composer-outline: var(--notebook-paper);
+  border-radius: 16px;
+  box-shadow: 2px 2px 0 var(--notebook-ink);
 }
 
 html.dark:not([data-theme-id]) [data-slot="composer-host"] {
-  box-shadow: 4px 4px 0 var(--notebook-pink);
-}
-
-html:not([data-theme-id]) [data-slot="empty-title"],
-html:not([data-theme-id]) .notebook-mark {
-  position: relative;
-  z-index: 0;
-  width: fit-content;
-}
-
-html:not([data-theme-id]) [data-slot="empty-title"]::after,
-html:not([data-theme-id]) .notebook-mark::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  right: -0.08em;
-  bottom: 0.05em;
-  left: -0.08em;
-  height: 0.38em;
-  border-radius: 0.2em 0.5em 0.28em 0.55em;
-  background: var(--notebook-pink);
-  opacity: 0.9;
-  transform: rotate(-1.2deg);
+  box-shadow: 2px 2px 0 rgb(251 248 241 / 28%);
 }
